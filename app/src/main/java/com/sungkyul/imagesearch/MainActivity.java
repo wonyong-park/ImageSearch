@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String FILE_NAME = "temp.jpg";
     private static final String ANDROID_CERT_HEADER = "X-Android-Cert";
     private static final String ANDROID_PACKAGE_HEADER = "X-Android-Package";
-    private static final int MAX_LABEL_RESULTS = 10;
+    private static final int MAX_LABEL_RESULTS = 10; //최대 결과 수
     private static final int MAX_DIMENSION = 1200;
 
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageView mMainImage;
     private EditText edit_keyword;
     private LinearLayout recommendkeyword;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -273,6 +274,8 @@ public class MainActivity extends AppCompatActivity {
             annotateImageRequest.setFeatures(new ArrayList<Feature>() {{
                 Feature labelDetection = new Feature();
 //                labelDetection.setType("LABEL_DETECTION");
+
+                //랜드마크로 설정
                 labelDetection.setType("LANDMARK_DETECTION");
                 labelDetection.setMaxResults(MAX_LABEL_RESULTS);
                 add(labelDetection);
