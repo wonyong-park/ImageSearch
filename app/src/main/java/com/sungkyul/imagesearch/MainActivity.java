@@ -43,11 +43,21 @@ import com.google.api.services.vision.v1.model.EntityAnnotation;
 import com.google.api.services.vision.v1.model.Feature;
 import com.google.api.services.vision.v1.model.Image;
 import com.google.cloud.translate.*;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.lang.ref.WeakReference;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -368,28 +378,35 @@ public class MainActivity extends AppCompatActivity {
 
 //        List<EntityAnnotation> labels = response.getResponses().get(0).getLabelAnnotations();
         List<EntityAnnotation> labels = response.getResponses().get(0).getLandmarkAnnotations();
-
         if (labels != null) {
             for (EntityAnnotation label : labels) {
+                Log.i("label.getDescription ", "번역하기전 결과 label.getDescription ==> " + label.getDescription());
 
-//                message.append(convertEnToKo(label.getDescription()));
-//                message.append(String.format(Locale.US, "%.3f: %s", label.getScore(), label.getDescription()));
-                if(label.getDescription().equals("Gyeongbokgung")){
-                    message.append("경복궁");
-                    Intent intent = new Intent(MainActivity.this, GyeongbokgungActivity.class);
+                //번역하기
+                String keyword = "No";
+                try {
+                    keyword = new NaverTranslateTask().doInBackground(label.getDescription());
+                }catch (Exception e) {
+                    e.printStackTrace();
+                }
+                Log.i("keyword ", "번역한 결과 keyword ==> " + keyword);
 
-                    startActivity(intent);
-                    break;
-                }else if(label.getDescription().equals("Gwanghwamun Gate")){
-                    message.append("광화문");
-                    Intent intent = new Intent(MainActivity.this, NoResultActivity.class);
+                    if(keyword.equals("경복궁")){
+                        message.append("경복궁");
+                        Intent intent = new Intent(MainActivity.this, GyeongbokgungActivity.class);
 
-                    startActivity(intent);
+                        startActivity(intent);
+                        break;
+                    }else if(keyword.equals("광화문")){
+                        message.append("광화문");
+                        Intent intent = new Intent(MainActivity.this, NoResultActivity.class);
+
+                        startActivity(intent);
 
                     break;
                 }
                 else{
-                    message.append(String.format(Locale.KOREAN, "%.3f: %s", label.getScore(), label.getDescription()));
+                    message.append(keyword);
                 }
                 message.append("\n");
             }
@@ -400,15 +417,5 @@ public class MainActivity extends AppCompatActivity {
         return message.toString();
     }
 
-//    private static String convertEnToKo(String str){
-//        Translate translate = TranslateOptions.getDefaultInstance().getService();
-//
-//        Translation translation = translate.translate(
-//                str,
-//                Translate.TranslateOption.sourceLanguage("es"),
-//                Translate.TranslateOption.targetLanguage("ko"),
-//                Translate.TranslateOption.model("nmt"));
-//        return translation.getTranslatedText();
-//    }
 
 }
