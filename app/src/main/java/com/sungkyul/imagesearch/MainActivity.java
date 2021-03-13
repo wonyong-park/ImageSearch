@@ -4,11 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.Manifest;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -17,7 +17,6 @@ import android.os.Environment;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -27,10 +26,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.api.client.extensions.android.http.AndroidHttp;
-import com.google.api.client.extensions.android.json.AndroidJsonFactory;
 import com.google.api.client.googleapis.json.GoogleJsonResponseException;
 import com.google.api.client.http.HttpTransport;
-import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.gson.GsonFactory;
 import com.google.api.services.vision.v1.Vision;
@@ -42,25 +39,16 @@ import com.google.api.services.vision.v1.model.BatchAnnotateImagesResponse;
 import com.google.api.services.vision.v1.model.EntityAnnotation;
 import com.google.api.services.vision.v1.model.Feature;
 import com.google.api.services.vision.v1.model.Image;
-import com.google.cloud.translate.*;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
+import com.sungkyul.imagesearch.Fragment.CrawlFragment;
+import com.sungkyul.imagesearch.Fragment.NoResultFragment;
+import com.sungkyul.imagesearch.Fragment.SuccessFragment;
 
-import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
-import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.lang.ref.WeakReference;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -83,6 +71,14 @@ public class MainActivity extends AppCompatActivity {
     private EditText edit_keyword;
     private LinearLayout recommendkeyword;
 
+    //fragment
+    private FragmentManager fragmentManager;
+    private SuccessFragment fragment_suceess;
+    private CrawlFragment fragment_crawl;
+    private NoResultFragment fragment_noresult;
+    private FragmentTransaction transaction;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,6 +89,16 @@ public class MainActivity extends AppCompatActivity {
         edit_keyword = findViewById(R.id.edit_keword);
         recommendkeyword = findViewById(R.id.recommendkeyword);
 
+        //fragment
+        fragmentManager = getSupportFragmentManager();
+
+        fragment_suceess = new SuccessFragment();
+        fragment_crawl = new CrawlFragment();
+        fragment_noresult = new NoResultFragment();
+
+        transaction = fragmentManager.beginTransaction();
+//        transaction.replace(R.id.frameLayout, fragment_suceess).commitAllowingStateLoss();
+
         camera.setOnClickListener(view -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
             builder
@@ -100,40 +106,48 @@ public class MainActivity extends AppCompatActivity {
                     .setPositiveButton("갤러리", (dialog, which) -> startGalleryChooser())
                     .setNegativeButton("사진 촬영", (dialog, which) -> startCamera());
             builder.create().show();
-            recommendkeyword.setVisibility(View.INVISIBLE);
+//            recommendkeyword.setVisibility(View.INVISIBLE);
         });
 
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                transaction = fragmentManager.beginTransaction();
+
                 if (edit_keyword.getText().toString().equals("경복궁")) {
-                    Intent intent = new Intent(MainActivity.this, GyeongbokgungActivity.class);
-                    edit_keyword.setText("");
-                    startActivity(intent);
+//                    Intent intent = new Intent(MainActivity.this, GyeongbokgungActivity.class);
+//                    edit_keyword.setText("");
+//                    startActivity(intent);
+                    transaction.replace(R.id.frameLayout, fragment_suceess).commitAllowingStateLoss();
+
                 }else if(edit_keyword.getText().toString().equals("낙산공원")){
-                    Intent intent = new Intent(MainActivity.this, NaksanParkActivity.class);
-                    edit_keyword.setText("");
-                    recommendkeyword.setVisibility(View.INVISIBLE);
-                    startActivity(intent);
+//                    Intent intent = new Intent(MainActivity.this, NaksanParkActivity.class);
+//                    edit_keyword.setText("");
+//                    recommendkeyword.setVisibility(View.INVISIBLE);
+//                    startActivity(intent);
+                    transaction.replace(R.id.frameLayout, fragment_crawl).commitAllowingStateLoss();
+
                 }else{
-                    Intent intent = new Intent(MainActivity.this, NoResultActivity.class);
-                    intent.putExtra("value",edit_keyword.getText().toString());
-                    edit_keyword.setText("");
-                    startActivity(intent);
+//                    Intent intent = new Intent(MainActivity.this, NoResultActivity.class);
+//                    intent.putExtra("value",edit_keyword.getText().toString());
+//                    edit_keyword.setText("");
+//                    startActivity(intent);
+                    transaction.replace(R.id.frameLayout, fragment_noresult).commitAllowingStateLoss();
                 }
-                recommendkeyword.setVisibility(View.INVISIBLE);
+//                recommendkeyword.setVisibility(View.INVISIBLE);
             }
         });
 
-        recommendkeyword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                recommendkeyword.setVisibility(View.INVISIBLE);
-            }
-        });
+//        recommendkeyword.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                recommendkeyword.setVisibility(View.INVISIBLE);
+//            }
+//        });
 
-        mImageDetails = findViewById(R.id.image_details);
-        mMainImage = findViewById(R.id.main_image);
+//        mImageDetails = findViewById(R.id.image_details);
+//        mMainImage = findViewById(R.id.main_image);
     }
 
 
@@ -210,13 +224,13 @@ public class MainActivity extends AppCompatActivity {
 //                edit_keyword.setText(uri.getPath());
 
                 callCloudVision(bitmap);
-                mMainImage.setImageBitmap(bitmap);
+//                mMainImage.setImageBitmap(bitmap);
 
                 if(uri.getPath().equals("/document/acc=1;doc=encoded=gss2Sqjm2NIucVg93PJvTJSr/lGe8iq85aF1v1Nb9W3CQZXtckqc")){
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            recommendkeyword.setVisibility(View.VISIBLE);
+//                            recommendkeyword.setVisibility(View.VISIBLE);
                         }
                     },3000);
 
@@ -332,15 +346,15 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(String result) {
             MainActivity activity = mActivityWeakReference.get();
             if (activity != null && !activity.isFinishing()) {
-                TextView imageDetail = activity.findViewById(R.id.image_details);
-                imageDetail.setText(result);
+//                TextView imageDetail = activity.findViewById(R.id.image_details);
+//                imageDetail.setText(result);
             }
         }
     }
 
     private void callCloudVision(final Bitmap bitmap) {
         // Switch text to loading
-        mImageDetails.setText("이미지 업로드 중입니다.\n잠시만 기다려주세요.");
+//        mImageDetails.setText("이미지 업로드 중입니다.\n잠시만 기다려주세요.");
 
         // Do the real work in an async task, because we need to use the network anyway
         try {
