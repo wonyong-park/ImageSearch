@@ -1,5 +1,2 @@
 # ImageSearch
-<<<<<<< HEAD
-=======
-2021-01-22 test
->>>>>>> origin/main
+'''동자방 졸업작품'''
