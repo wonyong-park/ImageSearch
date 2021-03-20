@@ -66,8 +66,8 @@ public class MainActivity extends AppCompatActivity {
     public static final int CAMERA_PERMISSIONS_REQUEST = 2;
     public static final int CAMERA_IMAGE_REQUEST = 3;
 
-    private TextView mImageDetails;
-    private ImageView mMainImage;
+//    private TextView mImageDetails;
+//    private ImageView mMainImage;
     private EditText edit_keyword;
     private LinearLayout recommendkeyword;
 
@@ -99,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
         transaction = fragmentManager.beginTransaction();
 //        transaction.replace(R.id.frameLayout, fragment_suceess).commitAllowingStateLoss();
 
+        //카메라 버튼 클릭시
         camera.setOnClickListener(view -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
             builder
@@ -109,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
 //            recommendkeyword.setVisibility(View.INVISIBLE);
         });
 
+        //검색 버튼 클릭시
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -150,6 +152,15 @@ public class MainActivity extends AppCompatActivity {
 //        mMainImage = findViewById(R.id.main_image);
     }
 
+    public void onFragmentChange(int index){
+        if(index == 0){
+            getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, fragment_suceess).commit();
+        }else if(index == 1){
+            getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, fragment_crawl).commit();
+        }else{
+            getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, fragment_noresult).commit();
+        }
+    }
 
     public void startGalleryChooser() {
         if (PermissionUtils.requestPermission(this, GALLERY_PERMISSIONS_REQUEST, Manifest.permission.READ_EXTERNAL_STORAGE)) {
@@ -387,11 +398,14 @@ public class MainActivity extends AppCompatActivity {
         return Bitmap.createScaledBitmap(bitmap, resizedWidth, resizedHeight, false);
     }
 
+    //번역 부분
     private String convertResponseToString(BatchAnnotateImagesResponse response) {
         StringBuilder message = new StringBuilder("검색된 결과 : ");
 
 //        List<EntityAnnotation> labels = response.getResponses().get(0).getLabelAnnotations();
         List<EntityAnnotation> labels = response.getResponses().get(0).getLandmarkAnnotations();
+
+        //labels != null는 비전 ai가 검색이 잘 되었을때
         if (labels != null) {
             for (EntityAnnotation label : labels) {
                 Log.i("label.getDescription ", "번역하기전 결과 label.getDescription ==> " + label.getDescription());
@@ -405,27 +419,29 @@ public class MainActivity extends AppCompatActivity {
                 }
                 Log.i("keyword ", "번역한 결과 keyword ==> " + keyword);
 
-                    if(keyword.equals("경복궁")){
-                        message.append("경복궁");
-                        Intent intent = new Intent(MainActivity.this, GyeongbokgungActivity.class);
-
-                        startActivity(intent);
-                        break;
-                    }else if(keyword.equals("광화문")){
-                        message.append("광화문");
-                        Intent intent = new Intent(MainActivity.this, NoResultActivity.class);
-
-                        startActivity(intent);
-
-                    break;
+                //vision ai => o, Elasticsearch => o
+                if(keyword.equals("경복궁")){
+                    onFragmentChange(0);
+                    Log.i("onFragmentChange => 0 ", "0번으로 변경 => 성공");
+//                    message.append("경복궁");
+//                    Intent intent = new Intent(MainActivity.this, GyeongbokgungActivity.class);
+//                    startActivity(intent);
                 }
+
+                //vision ai => o, Elasticsearch => x
                 else{
+                    onFragmentChange(2);
+                    Log.i("onFragmentChange => 2 ", "2번으로 변경 => noresult");
                     message.append(keyword);
                 }
                 message.append("\n");
+                break;
             }
         } else {
+            //vision ai => x --> 크롤로 가야함
             message.append("키워드 추출 실패");
+            onFragmentChange(1);
+            Log.i("onFragmentChange => 1 ", "1번으로 변경 => 크롤");
         }
 
         return message.toString();
