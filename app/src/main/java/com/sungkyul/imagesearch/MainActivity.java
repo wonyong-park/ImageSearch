@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -42,6 +43,15 @@ import com.google.api.services.vision.v1.model.Image;
 import com.sungkyul.imagesearch.Fragment.CrawlFragment;
 import com.sungkyul.imagesearch.Fragment.NoResultFragment;
 import com.sungkyul.imagesearch.Fragment.SuccessFragment;
+import com.sungkyul.imagesearch.es.Description;
+import com.sungkyul.imagesearch.es.ESDescriptionManager;
+import com.sungkyul.imagesearch.es.ESFoodManager;
+import com.sungkyul.imagesearch.es.ESTouristManager;
+import com.sungkyul.imagesearch.es.Food;
+import com.sungkyul.imagesearch.es.IDescriptionManager;
+import com.sungkyul.imagesearch.es.IFoodManager;
+import com.sungkyul.imagesearch.es.ITouristManager;
+import com.sungkyul.imagesearch.es.Tourist;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -78,6 +88,15 @@ public class MainActivity extends AppCompatActivity {
     private NoResultFragment fragment_noresult;
     private FragmentTransaction transaction;
 
+    //ES
+    private IFoodManager foodManager;
+    private List<Food> foods;
+    private IDescriptionManager descriptionManager;
+    private List<Description> descriptions;
+    private ITouristManager touristManager;
+    private List<Tourist> tourists;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +118,14 @@ public class MainActivity extends AppCompatActivity {
         transaction = fragmentManager.beginTransaction();
 //        transaction.replace(R.id.frameLayout, fragment_suceess).commitAllowingStateLoss();
 
+        //ES
+        foodManager = new ESFoodManager();
+        foods = new ArrayList<>();
+        descriptionManager = new ESDescriptionManager();
+        descriptions = new ArrayList<>();
+        touristManager = new ESTouristManager();
+        tourists = new ArrayList<>();
+
         //카메라 버튼 클릭시
         camera.setOnClickListener(view -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
@@ -115,38 +142,39 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                //ES
+                String searchText = edit_keyword.getText().toString();
+                Thread thread = new SearchThread(searchText);
+                thread.start();
+                try {
+                    thread.join();
+                }catch (InterruptedException e ){
+                    e.printStackTrace();
+                }
+
+                if(!descriptions.isEmpty() && !foods.isEmpty() && !tourists.isEmpty()) {
+                    Log.i(TAG, "description[0] ==> " + descriptions.get(0).toString());
+                    Log.i(TAG, "food[0] ==> " + foods.get(0).toString());
+                    Log.i(TAG, "tourist[0] ==> " + tourists.get(0).toString());
+                }
+
                 transaction = fragmentManager.beginTransaction();
 
-                if (edit_keyword.getText().toString().equals("경복궁")) {
-//                    Intent intent = new Intent(MainActivity.this, GyeongbokgungActivity.class);
-//                    edit_keyword.setText("");
-//                    startActivity(intent);
+                //키워드 검색시에는 2가지경우
+                if(!descriptions.isEmpty() && !foods.isEmpty() && !tourists.isEmpty()){
+                    // 1. Elasticsearch에 결과가 있는경우 --> ! des,food,tourist.isEmpty()
+                    Log.i(TAG, "키워드 검색 -> 엘라스틱 서치에 결과가 있다.");
+
                     transaction.replace(R.id.frameLayout, fragment_suceess).commitAllowingStateLoss();
 
-                }else if(edit_keyword.getText().toString().equals("낙산공원")){
-//                    Intent intent = new Intent(MainActivity.this, NaksanParkActivity.class);
-//                    edit_keyword.setText("");
-//                    recommendkeyword.setVisibility(View.INVISIBLE);
-//                    startActivity(intent);
-                    transaction.replace(R.id.frameLayout, fragment_crawl).commitAllowingStateLoss();
-
                 }else{
-//                    Intent intent = new Intent(MainActivity.this, NoResultActivity.class);
-//                    intent.putExtra("value",edit_keyword.getText().toString());
-//                    edit_keyword.setText("");
-//                    startActivity(intent);
+                    // 2. Elasticsearch에 결과가 없는경우 --> des,food,tourist.isEmpty()
+                    Log.i(TAG, "키워드 검색 -> 결과가 없다.");
                     transaction.replace(R.id.frameLayout, fragment_noresult).commitAllowingStateLoss();
                 }
-//                recommendkeyword.setVisibility(View.INVISIBLE);
+
             }
         });
-
-//        recommendkeyword.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                recommendkeyword.setVisibility(View.INVISIBLE);
-//            }
-//        });
 
 //        mImageDetails = findViewById(R.id.image_details);
 //        mMainImage = findViewById(R.id.main_image);
@@ -447,5 +475,28 @@ public class MainActivity extends AppCompatActivity {
         return message.toString();
     }
 
+    //검색하는 스레드
+    class SearchThread extends Thread{
+
+        private String search;
+
+        public SearchThread(String s) {
+            search = s;
+        }
+
+        @Override
+        public void run() {
+
+            descriptions.clear();
+            descriptions.addAll(descriptionManager.searchDescription(search,null));
+
+            foods.clear();
+            foods.addAll(foodManager.searchFoods(search, null));
+
+            tourists.clear();
+            tourists.addAll(touristManager.searchTourists(search,null));
+
+        }
+    }
 
 }

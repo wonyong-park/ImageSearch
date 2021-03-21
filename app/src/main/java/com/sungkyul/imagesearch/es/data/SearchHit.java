@@ -39,11 +39,11 @@ public class SearchHit<T> {
         this._score = _score;
     }
 
-    public T get_source() {
+    public T getsource() {
         return _source;
     }
 
-    public void set_source(T _source) {
+    public void setsource(T _source) {
         this._source = _source;
     }
 
