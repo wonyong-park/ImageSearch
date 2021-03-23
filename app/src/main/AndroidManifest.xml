@@ -23,15 +23,6 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".GyeongbokgungActivity">
-        </activity>
-
-        <activity android:name=".NoResultActivity">
-        </activity>
-
-        <activity android:name=".NaksanParkActivity">
-        </activity>
-
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"

@@ -165,6 +165,7 @@ public class MainActivity extends AppCompatActivity {
                     // 1. Elasticsearch에 결과가 있는경우 --> ! des,food,tourist.isEmpty()
                     Log.i(TAG, "키워드 검색 -> 엘라스틱 서치에 결과가 있다.");
 
+                    //검색이 성공한경우 bundle에 담아서 프래그먼트로 전송
                     Bundle bundle = new Bundle();
                     bundle.putParcelableArrayList("des_list" ,(ArrayList<? extends Parcelable>) descriptions);
                     bundle.putParcelableArrayList("food_list" ,(ArrayList<? extends Parcelable>) foods);
@@ -196,6 +197,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //사진 입력시 갤러리 선택
     public void startGalleryChooser() {
         if (PermissionUtils.requestPermission(this, GALLERY_PERMISSIONS_REQUEST, Manifest.permission.READ_EXTERNAL_STORAGE)) {
             Intent intent = new Intent();
@@ -206,6 +208,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //사진 입력시 카메라 시작
     public void startCamera() {
         if (PermissionUtils.requestPermission(
                 this,
@@ -397,6 +400,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //vision ai call
     private void callCloudVision(final Bitmap bitmap) {
         // Switch text to loading
 //        mImageDetails.setText("이미지 업로드 중입니다.\n잠시만 기다려주세요.");
