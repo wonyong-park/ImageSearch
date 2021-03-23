@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 
 import com.sungkyul.imagesearch.R;
 
+//CrawlFragment는 Vision AI가 성공하지 못했을때 호출되는 프래그먼트
 public class CrawlFragment extends Fragment {
 
     @Override

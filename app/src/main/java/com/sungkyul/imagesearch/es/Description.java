@@ -1,6 +1,9 @@
 package com.sungkyul.imagesearch.es;
 
-public class Description {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Description implements Parcelable {
     public String title;
     private String back_des;
     private String back_address;
@@ -8,6 +11,28 @@ public class Description {
     private String back_img;
     private String back_tel;
     private String back_review;
+
+    protected Description(Parcel in) {
+        title = in.readString();
+        back_des = in.readString();
+        back_address = in.readString();
+        back_open = in.readString();
+        back_img = in.readString();
+        back_tel = in.readString();
+        back_review = in.readString();
+    }
+
+    public static final Creator<Description> CREATOR = new Creator<Description>() {
+        @Override
+        public Description createFromParcel(Parcel in) {
+            return new Description(in);
+        }
+
+        @Override
+        public Description[] newArray(int size) {
+            return new Description[size];
+        }
+    };
 
     public String getTitle() {
         return title;
@@ -76,5 +101,21 @@ public class Description {
                 ", back_tel='" + back_tel + '\'' +
                 ", back_review='" + back_review + '\'' +
                 '}';
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(title);
+        dest.writeString(back_des);
+        dest.writeString(back_address);
+        dest.writeString(back_open);
+        dest.writeString(back_img);
+        dest.writeString(back_tel);
+        dest.writeString(back_review);
     }
 }

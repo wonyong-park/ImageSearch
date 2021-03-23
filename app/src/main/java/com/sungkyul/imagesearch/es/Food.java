@@ -1,6 +1,9 @@
 package com.sungkyul.imagesearch.es;
 
-public class Food {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Food implements Parcelable {
     public String title;
     private String food_key;
     private String food_address;
@@ -9,6 +12,29 @@ public class Food {
     private String food_tel;
     private String food_menu;
     private String food_review;
+
+    protected Food(Parcel in) {
+        title = in.readString();
+        food_key = in.readString();
+        food_address = in.readString();
+        food_open = in.readString();
+        food_img = in.readString();
+        food_tel = in.readString();
+        food_menu = in.readString();
+        food_review = in.readString();
+    }
+
+    public static final Creator<Food> CREATOR = new Creator<Food>() {
+        @Override
+        public Food createFromParcel(Parcel in) {
+            return new Food(in);
+        }
+
+        @Override
+        public Food[] newArray(int size) {
+            return new Food[size];
+        }
+    };
 
     public String getTitle() {
         return title;
@@ -72,6 +98,23 @@ public class Food {
 
     public void setFood_review(String food_review) {
         this.food_review = food_review;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(title);
+        dest.writeString(food_key);
+        dest.writeString(food_address);
+        dest.writeString(food_open);
+        dest.writeString(food_img);
+        dest.writeString(food_tel);
+        dest.writeString(food_menu);
+        dest.writeString(food_review);
     }
 
     @Override

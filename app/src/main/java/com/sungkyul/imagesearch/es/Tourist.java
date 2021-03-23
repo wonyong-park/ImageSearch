@@ -1,6 +1,9 @@
 package com.sungkyul.imagesearch.es;
 
-public class Tourist {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Tourist implements Parcelable {
     public String title;
     private String tourist_key;
     private String tourist_address;
@@ -9,6 +12,29 @@ public class Tourist {
     private String tourist_tel;
     private String tourist_des;
     private String tourist_review;
+
+    protected Tourist(Parcel in) {
+        title = in.readString();
+        tourist_key = in.readString();
+        tourist_address = in.readString();
+        tourist_open = in.readString();
+        tourist_img = in.readString();
+        tourist_tel = in.readString();
+        tourist_des = in.readString();
+        tourist_review = in.readString();
+    }
+
+    public static final Creator<Tourist> CREATOR = new Creator<Tourist>() {
+        @Override
+        public Tourist createFromParcel(Parcel in) {
+            return new Tourist(in);
+        }
+
+        @Override
+        public Tourist[] newArray(int size) {
+            return new Tourist[size];
+        }
+    };
 
     public String getTitle() {
         return title;
@@ -72,6 +98,23 @@ public class Tourist {
 
     public void setTourist_review(String tourist_review) {
         this.tourist_review = tourist_review;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(title);
+        dest.writeString(tourist_key);
+        dest.writeString(tourist_address);
+        dest.writeString(tourist_open);
+        dest.writeString(tourist_img);
+        dest.writeString(tourist_tel);
+        dest.writeString(tourist_des);
+        dest.writeString(tourist_review);
     }
 
     @Override

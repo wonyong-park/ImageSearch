@@ -16,6 +16,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
@@ -119,6 +120,7 @@ public class MainActivity extends AppCompatActivity {
 //        transaction.replace(R.id.frameLayout, fragment_suceess).commitAllowingStateLoss();
 
         //ES
+        //***s는 데이터를 담아놓는 리스트, ***manager는 함수호출용
         foodManager = new ESFoodManager();
         foods = new ArrayList<>();
         descriptionManager = new ESDescriptionManager();
@@ -158,19 +160,23 @@ public class MainActivity extends AppCompatActivity {
                     Log.i(TAG, "tourist[0] ==> " + tourists.get(0).toString());
                 }
 
-                transaction = fragmentManager.beginTransaction();
-
                 //키워드 검색시에는 2가지경우
                 if(!descriptions.isEmpty() && !foods.isEmpty() && !tourists.isEmpty()){
                     // 1. Elasticsearch에 결과가 있는경우 --> ! des,food,tourist.isEmpty()
                     Log.i(TAG, "키워드 검색 -> 엘라스틱 서치에 결과가 있다.");
 
-                    transaction.replace(R.id.frameLayout, fragment_suceess).commitAllowingStateLoss();
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelableArrayList("des_list" ,(ArrayList<? extends Parcelable>) descriptions);
+                    bundle.putParcelableArrayList("food_list" ,(ArrayList<? extends Parcelable>) foods);
+                    bundle.putParcelableArrayList("tourist_list" ,(ArrayList<? extends Parcelable>) tourists);
+
+                    fragment_suceess.setArguments(bundle);
+                    onFragmentChange(0); //successFragment로 변경
 
                 }else{
                     // 2. Elasticsearch에 결과가 없는경우 --> des,food,tourist.isEmpty()
                     Log.i(TAG, "키워드 검색 -> 결과가 없다.");
-                    transaction.replace(R.id.frameLayout, fragment_noresult).commitAllowingStateLoss();
+                    onFragmentChange(2); //noResultFragment로 변경
                 }
 
             }
