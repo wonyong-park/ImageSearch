@@ -42,6 +42,7 @@ import com.google.api.services.vision.v1.model.EntityAnnotation;
 import com.google.api.services.vision.v1.model.Feature;
 import com.google.api.services.vision.v1.model.Image;
 import com.sungkyul.imagesearch.Fragment.CrawlFragment;
+import com.sungkyul.imagesearch.Fragment.DescriptionFragment;
 import com.sungkyul.imagesearch.Fragment.NoResultFragment;
 import com.sungkyul.imagesearch.Fragment.SuccessFragment;
 import com.sungkyul.imagesearch.es.Description;
@@ -87,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
     private SuccessFragment fragment_suceess;
     private CrawlFragment fragment_crawl;
     private NoResultFragment fragment_noresult;
+    private DescriptionFragment fragment_description;
     private FragmentTransaction transaction;
 
     //ES
@@ -115,6 +117,7 @@ public class MainActivity extends AppCompatActivity {
         fragment_suceess = new SuccessFragment();
         fragment_crawl = new CrawlFragment();
         fragment_noresult = new NoResultFragment();
+        fragment_description = new DescriptionFragment();
 
         transaction = fragmentManager.beginTransaction();
 //        transaction.replace(R.id.frameLayout, fragment_suceess).commitAllowingStateLoss();
@@ -171,7 +174,7 @@ public class MainActivity extends AppCompatActivity {
                     bundle.putParcelableArrayList("food_list" ,(ArrayList<? extends Parcelable>) foods);
                     bundle.putParcelableArrayList("tourist_list" ,(ArrayList<? extends Parcelable>) tourists);
 
-                    fragment_suceess.setArguments(bundle);
+                    fragment_description.setArguments(bundle);
                     onFragmentChange(0); //successFragment로 변경
 
                 }else{
@@ -189,7 +192,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onFragmentChange(int index){
         if(index == 0){
-            getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, fragment_suceess).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, fragment_description).commit();
         }else if(index == 1){
             getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, fragment_crawl).commit();
         }else{
