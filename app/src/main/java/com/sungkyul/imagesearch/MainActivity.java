@@ -460,13 +460,23 @@ public class MainActivity extends AppCompatActivity {
                 }
                 Log.i("keyword ", "번역한 결과 keyword ==> " + keyword);
 
+                Thread thread = new SearchThread(keyword);
+                thread.start();
+                try {
+                    thread.join();
+                }catch (InterruptedException e ){
+                    e.printStackTrace();
+                }
+
                 //vision ai => o, Elasticsearch => o
-                if(keyword.equals("경복궁")){
-                    onFragmentChange(0);
-                    Log.i("onFragmentChange => 0 ", "0번으로 변경 => 성공");
-//                    message.append("경복궁");
-//                    Intent intent = new Intent(MainActivity.this, GyeongbokgungActivity.class);
-//                    startActivity(intent);
+                if(!descriptions.isEmpty() && !foods.isEmpty() && !tourists.isEmpty()){
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelableArrayList("des_list" ,(ArrayList<? extends Parcelable>) descriptions);
+                    bundle.putParcelableArrayList("food_list" ,(ArrayList<? extends Parcelable>) foods);
+                    bundle.putParcelableArrayList("tourist_list" ,(ArrayList<? extends Parcelable>) tourists);
+
+                    fragment_description.setArguments(bundle);
+                    onFragmentChange(0); //successFragment로 변경
                 }
 
                 //vision ai => o, Elasticsearch => x
