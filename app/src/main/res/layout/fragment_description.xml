@@ -7,13 +7,42 @@
     android:id="@+id/Linear_des"
     tools:context=".Fragment.DescriptionFragment">
 
-    <TextView
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="640px"
+        android:id="@+id/back_image"
+        android:layout_margin="30dp"
+        android:src="@drawable/sorryicon"
+        android:scaleType="fitCenter"
+        />
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:textSize="50dp"
-        android:text="des_fr"
-        android:textAlignment="center"
-        />
+        android:padding="5dp"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="30dp"
+            android:text="검색 타이틀 제목"
+            android:textStyle="bold"
+            android:id="@+id/back_title"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15dp"
+            android:text="검색 설명 가나다라마바사 아자차카 타파하검색 설명 가나다라마바사 아자차카 타파하검색 설명 가나다라마바사 아자차카 타파하검색 설명 가나다라마바사 아자차카 타파하검색 설명 가나다라마바사 아자차카 타파하검색 설명 가나다라마바사 아자차카 타파하검색 설명 가나다라마바사 아자차카 타파하검색 설명 가나다라마바사 아자차카 타파하"
+            android:id="@+id/back_des"
+            />
+
+    </LinearLayout>
+
+
 
 
 </LinearLayout>
