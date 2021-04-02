@@ -11,7 +11,8 @@ public class Food implements Parcelable {
     private String food_img;
     private String food_tel;
     private String food_menu;
-    private String food_review;
+    private String food_rank;
+    private String food_category;
 
     protected Food(Parcel in) {
         title = in.readString();
@@ -21,7 +22,8 @@ public class Food implements Parcelable {
         food_img = in.readString();
         food_tel = in.readString();
         food_menu = in.readString();
-        food_review = in.readString();
+        food_rank = in.readString();
+        food_category = in.readString();
     }
 
     public static final Creator<Food> CREATOR = new Creator<Food>() {
@@ -92,12 +94,20 @@ public class Food implements Parcelable {
         this.food_menu = food_menu;
     }
 
-    public String getFood_review() {
-        return food_review;
+    public String getFood_rank() {
+        return food_rank;
     }
 
-    public void setFood_review(String food_review) {
-        this.food_review = food_review;
+    public void setFood_rank(String food_rank) {
+        this.food_rank = food_rank;
+    }
+
+    public String getFood_category() {
+        return food_category;
+    }
+
+    public void setFood_category(String food_category) {
+        this.food_category = food_category;
     }
 
     @Override
@@ -114,7 +124,9 @@ public class Food implements Parcelable {
         dest.writeString(food_img);
         dest.writeString(food_tel);
         dest.writeString(food_menu);
-        dest.writeString(food_review);
+        dest.writeString(food_rank);
+        dest.writeString(food_category);
+
     }
 
     @Override
@@ -127,7 +139,8 @@ public class Food implements Parcelable {
                 ", food_img='" + food_img + '\'' +
                 ", food_tel='" + food_tel + '\'' +
                 ", food_menu='" + food_menu + '\'' +
-                ", food_review='" + food_review + '\'' +
+                ", food_rank='" + food_rank + '\'' +
+                ", food_category='" + food_category + '\'' +
                 '}';
     }
 }

@@ -10,7 +10,6 @@ public class Description implements Parcelable {
     private String back_open;
     private String back_img;
     private String back_tel;
-    private String back_review;
 
     protected Description(Parcel in) {
         title = in.readString();
@@ -19,7 +18,6 @@ public class Description implements Parcelable {
         back_open = in.readString();
         back_img = in.readString();
         back_tel = in.readString();
-        back_review = in.readString();
     }
 
     public static final Creator<Description> CREATOR = new Creator<Description>() {
@@ -82,13 +80,6 @@ public class Description implements Parcelable {
         this.back_tel = back_tel;
     }
 
-    public String getBack_review() {
-        return back_review;
-    }
-
-    public void setBack_review(String back_review) {
-        this.back_review = back_review;
-    }
 
     @Override
     public String toString() {
@@ -99,7 +90,6 @@ public class Description implements Parcelable {
                 ", back_open='" + back_open + '\'' +
                 ", back_img='" + back_img + '\'' +
                 ", back_tel='" + back_tel + '\'' +
-                ", back_review='" + back_review + '\'' +
                 '}';
     }
 
@@ -116,6 +106,5 @@ public class Description implements Parcelable {
         dest.writeString(back_open);
         dest.writeString(back_img);
         dest.writeString(back_tel);
-        dest.writeString(back_review);
     }
 }

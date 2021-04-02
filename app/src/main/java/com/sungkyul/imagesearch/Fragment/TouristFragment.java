@@ -1,5 +1,7 @@
 package com.sungkyul.imagesearch.Fragment;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -10,15 +12,24 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.sungkyul.imagesearch.Fragment.Sub.Food_Sub;
+import com.sungkyul.imagesearch.Fragment.Sub.Tourist_Sub;
 import com.sungkyul.imagesearch.OnSwipeTouchListener;
 import com.sungkyul.imagesearch.R;
 import com.sungkyul.imagesearch.es.Description;
 import com.sungkyul.imagesearch.es.Food;
 import com.sungkyul.imagesearch.es.Tourist;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 
 public class TouristFragment extends Fragment {
@@ -26,11 +37,18 @@ public class TouristFragment extends Fragment {
     private static final String TAG = "TouristFragment";
 
     LinearLayout linear_tourist;
+    LinearLayout linear_scroll_tou;
 
     DescriptionFragment fragment_description;
     FoodFragment fragment_food;
     FragmentManager fm;
     FragmentTransaction transaction;
+
+    TextView tourist_title;
+    TextView tourist_des;
+
+    ImageView tourist_image;
+    Bitmap bitmap;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -44,6 +62,7 @@ public class TouristFragment extends Fragment {
         transaction = fm.beginTransaction();
 
         linear_tourist = (LinearLayout)v.findViewById(R.id.Linear_tourist);
+        linear_scroll_tou = (LinearLayout)v.findViewById(R.id.linear_scroll_tou);
 
         Bundle bundle = getArguments();
         List<Description> descriptions = bundle.getParcelableArrayList("des_list");
@@ -52,6 +71,72 @@ public class TouristFragment extends Fragment {
         Log.i(TAG, descriptions.get(0).toString());
         Log.i(TAG, foods.get(0).toString());
         Log.i(TAG, tourists.get(0).toString());
+
+        //
+        for (Tourist tourist : tourists){
+            Tourist_Sub n_layout = new Tourist_Sub(getActivity().getApplicationContext());
+            LinearLayout con = (LinearLayout)v.findViewById(R.id.linear_scroll_tou);
+            tourist_title = (TextView)n_layout.findViewById(R.id.tourist_title);
+            tourist_des = (TextView)n_layout.findViewById(R.id.tourist_des);
+            tourist_image = (ImageView)n_layout.findViewById(R.id.tourist_image);
+
+            //이미지 불러오는 쓰레드
+            Thread mThread = new Thread(){
+                @Override
+                public void run() {
+                    try {
+                        URL url = new URL(tourist.getTourist_img());
+
+                        HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+                        conn.setDoInput(true);
+                        conn.connect();
+
+                        InputStream is = conn.getInputStream();
+                        bitmap = BitmapFactory.decodeStream(is);
+                    }catch(MalformedURLException e){
+                        e.printStackTrace();
+                    }catch (IOException e){
+                        e.printStackTrace();
+                    }
+                }
+            };
+
+            mThread.start();
+
+            try{
+                mThread.join();
+                tourist_image.setImageBitmap(bitmap);
+            }catch (InterruptedException e){
+                e.printStackTrace();
+            }
+
+            if(tourist_title != null){
+                tourist_title.setText(tourist.getTourist_key());
+                tourist_des.setText("주소 : " + tourist.getTourist_address() +
+                        "\n영업 시간 : " + tourist.getTourist_open()
+                );
+            }
+
+
+            con.addView(n_layout);
+        }
+
+        linear_scroll_tou.setOnTouchListener(new OnSwipeTouchListener(getActivity().getApplicationContext()){
+            @Override
+            public void onSwipeRight() {
+                fragment_food.setArguments(bundle);
+                transaction.replace(R.id.frameLayout, fragment_food);
+                transaction.commit();
+            }
+
+            @Override
+            public void onSwipeLeft() {
+                fragment_description.setArguments(bundle);
+                transaction.replace(R.id.frameLayout, fragment_description);
+                transaction.commit();
+            }
+
+        });
 
         linear_tourist.setOnTouchListener(new OnSwipeTouchListener(getActivity().getApplicationContext()){
             @Override

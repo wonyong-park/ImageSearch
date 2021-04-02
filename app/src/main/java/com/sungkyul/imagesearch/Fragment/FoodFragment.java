@@ -1,5 +1,7 @@
 package com.sungkyul.imagesearch.Fragment;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -10,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,6 +26,11 @@ import com.sungkyul.imagesearch.es.Tourist;
 
 import org.w3c.dom.Text;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 
 public class FoodFragment extends Fragment {
@@ -38,6 +46,9 @@ public class FoodFragment extends Fragment {
 
     TextView food_title;
     TextView food_des;
+
+    ImageView food_image;
+    Bitmap bitmap;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -68,13 +79,46 @@ public class FoodFragment extends Fragment {
             LinearLayout con = (LinearLayout)v.findViewById(R.id.linear_scroll);
             food_title = (TextView)n_layout.findViewById(R.id.food_title);
             food_des = (TextView)n_layout.findViewById(R.id.food_des);
+            food_image = (ImageView)n_layout.findViewById(R.id.food_image);
+
+            //이미지 불러오는 쓰레드
+            Thread mThread = new Thread(){
+                @Override
+                public void run() {
+                    try {
+                        URL url = new URL(food.getFood_img());
+
+                        HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+                        conn.setDoInput(true);
+                        conn.connect();
+
+                        InputStream is = conn.getInputStream();
+                        bitmap = BitmapFactory.decodeStream(is);
+                    }catch(MalformedURLException e){
+                        e.printStackTrace();
+                    }catch (IOException e){
+                        e.printStackTrace();
+                    }
+                }
+            };
+
+            mThread.start();
+
+            try{
+                mThread.join();
+                food_image.setImageBitmap(bitmap);
+            }catch (InterruptedException e){
+                e.printStackTrace();
+            }
 
             if(food_title != null){
-                food_title.setText(food.getTitle());
-                food_des.setText("주소 : " + food.getFood_key() +
+                food_title.setText(food.getFood_key());
+                food_des.setText("주소 : " + food.getFood_address() +
                         "\n영업 시간 : " + food.getFood_open() +
                         "\n전화 번호 : " + food.getFood_tel() +
-                        "\n메뉴 : " + food.getFood_menu()
+                        "\n메뉴 : " + food.getFood_menu() +
+                        "\n순위 : " + food.getFood_rank() +
+                        "\n카테고리 : " + food.getFood_category()
                 );
             }
 
@@ -120,4 +164,5 @@ public class FoodFragment extends Fragment {
 
         return v;
     }
+
 }

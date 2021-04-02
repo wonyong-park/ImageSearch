@@ -13,27 +13,27 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="640px"
-            android:id="@+id/food_image"
+            android:id="@+id/tourist_image"
             android:layout_margin="10dp"
             android:src="@drawable/sorryicon"
             android:scaleType="fitCenter"
             />
 
         <TextView
-            android:id="@+id/food_title"
+            android:id="@+id/tourist_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="30dp"
-            android:text="음식점 이름"
+            android:text="관광지 이름"
             android:textStyle="bold"
             />
 
         <TextView
-            android:id="@+id/food_des"
+            android:id="@+id/tourist_des"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="15dp"
-            android:text="음식점 정보들 가나다라마바사 아자차카 타파하검색 설명 가나다라마바사 아자차카 타파하검색 설명 가나다라마바사 아자차카 타파하검색 설명 가나다라마바사 아자차카 타파하검색 설명 가나다라마바사 아자차카 타파하검색 설명 가나다라마바사 아자차카 타파하검색 설명 가나다라마바사 아자차카 타파하검색 설명 가나다라마바사 아자차카 타파하"
+            android:text="관광지 정보들 가나다라마바사 아자차카 타파하검색 설명 가나다라마바사 아자차카 타파하검색 설명 가나다라마바사 아자차카 타파하검색 설명 가나다라마바사 아자차카 타파하검색 설명 가나다라마바사 아자차카 타파하검색 설명 가나다라마바사 아자차카 타파하검색 설명 가나다라마바사 아자차카 타파하검색 설명 가나다라마바사 아자차카 타파하"
             />
 
 

@@ -67,12 +67,28 @@ public class DescriptionFragment extends Fragment {
         back_title = (TextView)v.findViewById(R.id.back_title);
         back_des = (TextView)v.findViewById(R.id.back_des);
 
+
+
+        Bundle bundle = getArguments();
+        List<Description> descriptions = bundle.getParcelableArrayList("des_list");
+        List<Food> foods = bundle.getParcelableArrayList("food_list");
+        List<Tourist> tourists = bundle.getParcelableArrayList("tourist_list");
+        Log.i(TAG, descriptions.get(0).toString());
+        Log.i(TAG, foods.get(0).toString());
+        Log.i(TAG, tourists.get(0).toString());
+
+        back_title.setText(descriptions.get(0).getTitle());
+        back_des.setText(descriptions.get(0).getBack_des() +
+                "\n 주소 : " + descriptions.get(0).getBack_address() +
+                "\n 오픈 시간 : " + descriptions.get(0).getBack_open() +
+                "\n 전화 번호 : " + descriptions.get(0).getBack_tel());
+
         //이미지 불러오는 쓰레드
         Thread mThread = new Thread(){
             @Override
             public void run() {
                 try {
-                    URL url = new URL("http://220.67.115.212:5601/dongjabang/image/naksan_image.jpg");
+                    URL url = new URL(descriptions.get(0).getBack_img());
 
                     HttpURLConnection conn = (HttpURLConnection)url.openConnection();
                     conn.setDoInput(true);
@@ -96,21 +112,6 @@ public class DescriptionFragment extends Fragment {
         }catch (InterruptedException e){
             e.printStackTrace();
         }
-
-        Bundle bundle = getArguments();
-        List<Description> descriptions = bundle.getParcelableArrayList("des_list");
-        List<Food> foods = bundle.getParcelableArrayList("food_list");
-        List<Tourist> tourists = bundle.getParcelableArrayList("tourist_list");
-        Log.i(TAG, descriptions.get(0).toString());
-        Log.i(TAG, foods.get(0).toString());
-        Log.i(TAG, tourists.get(0).toString());
-
-        back_title.setText(descriptions.get(0).getTitle());
-        back_des.setText(descriptions.get(0).getBack_des() +
-                "\n 주소 : " + descriptions.get(0).getBack_address() +
-                "\n 오픈 시간 : " + descriptions.get(0).getBack_open() +
-                "\n 전화 번호 : " + descriptions.get(0).getBack_tel() +
-                "\n 리뷰 : " + descriptions.get(0).getBack_review());
 
 
         linear_des.setOnTouchListener(new OnSwipeTouchListener(getActivity().getApplicationContext()){

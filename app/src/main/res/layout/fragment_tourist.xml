@@ -7,13 +7,24 @@
     android:id="@+id/Linear_tourist"
     tools:context=".Fragment.TouristFragment">
 
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:textSize="50dp"
-        android:text="tourist_fr"
-        android:textAlignment="center"
-        />
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:id="@+id/linear_scroll_tou"
+            >
+
+
+        </LinearLayout>
+
+
+
+    </ScrollView>
 
 
 </LinearLayout>
