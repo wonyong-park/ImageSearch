@@ -1,10 +1,15 @@
 package com.sungkyul.imagesearch.Fragment;
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -13,6 +18,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -33,7 +39,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 
-public class DescriptionFragment extends Fragment {
+public class DescriptionFragment extends Fragment implements View.OnClickListener{
 
     private static final String TAG = "DescriptionFragment";
 
@@ -47,9 +53,14 @@ public class DescriptionFragment extends Fragment {
     ImageView imageView;
     Bitmap bitmap;
 
+    Button open;
+
     TextView back_title;
     TextView back_des;
-
+    TextView back_tel;
+    TextView back_open;
+    String num;
+    List<Description> descriptions;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -66,11 +77,12 @@ public class DescriptionFragment extends Fragment {
         imageView = (ImageView)v.findViewById(R.id.back_image);
         back_title = (TextView)v.findViewById(R.id.back_title);
         back_des = (TextView)v.findViewById(R.id.back_des);
-
+        back_tel = (TextView)v.findViewById(R.id.back_tel);
+        back_open = (TextView)v.findViewById(R.id.back_open);
 
 
         Bundle bundle = getArguments();
-        List<Description> descriptions = bundle.getParcelableArrayList("des_list");
+        descriptions = bundle.getParcelableArrayList("des_list");
         List<Food> foods = bundle.getParcelableArrayList("food_list");
         List<Tourist> tourists = bundle.getParcelableArrayList("tourist_list");
         Log.i(TAG, descriptions.get(0).toString());
@@ -78,10 +90,22 @@ public class DescriptionFragment extends Fragment {
         Log.i(TAG, tourists.get(0).toString());
 
         back_title.setText(descriptions.get(0).getTitle());
-        back_des.setText(descriptions.get(0).getBack_des() +
-                "\n 주소 : " + descriptions.get(0).getBack_address() +
-                "\n 오픈 시간 : " + descriptions.get(0).getBack_open() +
-                "\n 전화 번호 : " + descriptions.get(0).getBack_tel());
+        back_des.setText(descriptions.get(0).getBack_des());
+        back_tel.setText(descriptions.get(0).getBack_tel());
+
+        num = descriptions.get(0).getBack_tel();
+
+       open = (Button) v.findViewById(R.id.back_open) ;
+       open.setOnClickListener((View.OnClickListener) this);
+
+        back_tel.setOnClickListener(new View.OnClickListener() {
+            String tel = "tel:" + num;
+            @Override
+            public void onClick(View view) {
+                 Intent intent =new Intent(Intent.ACTION_DIAL, Uri.parse(tel));
+                 startActivity(intent);
+            }
+        });
 
         //이미지 불러오는 쓰레드
         Thread mThread = new Thread(){
@@ -90,6 +114,8 @@ public class DescriptionFragment extends Fragment {
                 try {
                     URL url = new URL(descriptions.get(0).getBack_img());
 
+                    Log.i(TAG, "잘 되고 있나요~~~");
+
                     HttpURLConnection conn = (HttpURLConnection)url.openConnection();
                     conn.setDoInput(true);
                     conn.connect();
@@ -97,6 +123,7 @@ public class DescriptionFragment extends Fragment {
                     InputStream is = conn.getInputStream();
                     bitmap = BitmapFactory.decodeStream(is);
                 }catch(MalformedURLException e){
+                    Log.i(TAG, "잘 안 되고 있나요~~~");
                     e.printStackTrace();
                 }catch (IOException e){
                     e.printStackTrace();
@@ -130,10 +157,32 @@ public class DescriptionFragment extends Fragment {
             }
 
         });
-
         return v;
     }
 
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
 
+            case R.id.back_open:
 
+                // 데이터를 다이얼로그로 보내는 코드
+
+                Bundle args = new Bundle();
+
+                args.putString("key", "value");
+
+                //---------------------------------------.//
+
+                FragmentDialog dialog = new FragmentDialog();
+
+                dialog.setArguments(args); // 데이터 전달
+
+                dialog.show(getActivity().getSupportFragmentManager(),"tag");
+
+                Log.e("잘 나오나요","잘 나오나요");
+                break;
+
+        }
+    }
 }
