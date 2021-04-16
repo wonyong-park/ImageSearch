@@ -54,4 +54,7 @@ dependencies {
     compile 'com.google.code.findbugs:jsr305:2.0.1'
     compile 'com.google.http-client:google-http-client-gson:1.19.0'
     compile 'com.google.cloud:google-cloud-translate:1.95.4'
+    implementation 'com.google.android.gms:play-services-location:16.0.0'
+    implementation 'com.google.android.gms:play-services-maps:16.0.0'
+
 }

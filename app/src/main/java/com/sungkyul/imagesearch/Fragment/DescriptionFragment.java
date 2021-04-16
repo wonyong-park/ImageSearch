@@ -57,8 +57,9 @@ public class DescriptionFragment extends Fragment implements View.OnClickListene
 
     TextView back_title;
     TextView back_des;
-    TextView back_tel;
-    TextView back_open;
+    Button back_tel;
+    Button back_open;
+    Button back_address;
     String num;
     List<Description> descriptions;
 
@@ -77,9 +78,9 @@ public class DescriptionFragment extends Fragment implements View.OnClickListene
         imageView = (ImageView)v.findViewById(R.id.back_image);
         back_title = (TextView)v.findViewById(R.id.back_title);
         back_des = (TextView)v.findViewById(R.id.back_des);
-        back_tel = (TextView)v.findViewById(R.id.back_tel);
-        back_open = (TextView)v.findViewById(R.id.back_open);
-
+        back_tel = (Button)v.findViewById(R.id.back_tel);
+        back_open = (Button)v.findViewById(R.id.back_open);
+        back_address = (Button)v.findViewById(R.id.back_address);
 
         Bundle bundle = getArguments();
         descriptions = bundle.getParcelableArrayList("des_list");
@@ -92,7 +93,7 @@ public class DescriptionFragment extends Fragment implements View.OnClickListene
         back_title.setText(descriptions.get(0).getTitle());
         back_des.setText(descriptions.get(0).getBack_des());
         back_tel.setText(descriptions.get(0).getBack_tel());
-
+        back_address.setText(descriptions.get(0).getBack_address());
         num = descriptions.get(0).getBack_tel();
 
        open = (Button) v.findViewById(R.id.back_open) ;
