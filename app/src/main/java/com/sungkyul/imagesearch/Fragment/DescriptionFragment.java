@@ -1,6 +1,7 @@
 package com.sungkyul.imagesearch.Fragment;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -10,6 +11,7 @@ import android.os.Build;
 import android.os.Bundle;
 
 import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -166,24 +168,10 @@ public class DescriptionFragment extends Fragment implements View.OnClickListene
         switch (view.getId()) {
 
             case R.id.back_open:
-
-                // 데이터를 다이얼로그로 보내는 코드
-
-                Bundle args = new Bundle();
-
-                args.putString("key", "value");
-
-                //---------------------------------------.//
-
-                FragmentDialog dialog = new FragmentDialog();
-
-                dialog.setArguments(args); // 데이터 전달
-
-                dialog.show(getActivity().getSupportFragmentManager(),"tag");
-
-                Log.e("잘 나오나요","잘 나오나요");
-                break;
-
+                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                builder.setMessage(descriptions.get(0).getBack_open());
+                builder.setNeutralButton("나가기", null);
+                builder.create().show();
         }
     }
 }
