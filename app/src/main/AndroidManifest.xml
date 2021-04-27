@@ -47,7 +47,7 @@
          </provider>
 
         <!-- Map을 사용하기 위한 키 부분-->
-        <meta-data android:name="com.google.android.maps.v2.API_KEY" android:value="AIzaSyAHWZ9NQD5xp5pHu102CsdItg8bTf4PYbE"/>
+        <meta-data android:name="com.google.android.maps.v2.API_KEY" android:value="AIzaSyAmPlzXUUWiQhmtbPI22VoUHQbK5uHrHHg"/>
         <uses-library android:name="org.apache.http.legacy" android:required="false"/>
         <!-- Map을 사용하기 위한 부분-->
 
