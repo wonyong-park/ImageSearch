@@ -9,6 +9,8 @@ public class Tourist implements Parcelable {
     private String tourist_address;//
     private String tourist_open;//
     private String tourist_img;//
+    private String tourist_latitude;
+    private String tourist_longitude;
 
     protected Tourist(Parcel in) {
         title = in.readString();
@@ -16,6 +18,8 @@ public class Tourist implements Parcelable {
         tourist_address = in.readString();
         tourist_open = in.readString();
         tourist_img = in.readString();
+        tourist_latitude = in.readString();
+        tourist_longitude = in.readString();
     }
 
     public static final Creator<Tourist> CREATOR = new Creator<Tourist>() {
@@ -82,6 +86,8 @@ public class Tourist implements Parcelable {
         dest.writeString(tourist_address);
         dest.writeString(tourist_open);
         dest.writeString(tourist_img);
+        dest.writeString(tourist_latitude);
+        dest.writeString(tourist_longitude);
     }
 
     @Override
@@ -92,6 +98,8 @@ public class Tourist implements Parcelable {
                 ", tourist_address='" + tourist_address + '\'' +
                 ", tourist_open='" + tourist_open + '\'' +
                 ", tourist_img='" + tourist_img + '\'' +
+                ", tourist_latitude='" + tourist_latitude + '\'' +
+                ", tourist_longitude='" + tourist_longitude + '\'' +
                 '}';
     }
 }

@@ -74,7 +74,7 @@ public class FoodFragment extends Fragment {
         Log.i(TAG, tourists.get(0).toString());
 
 
-        //
+        //food의 들어있는 객체만큼 만들어주기
         for (Food food : foods){
             Food_Sub n_layout = new Food_Sub(getActivity().getApplicationContext());
             LinearLayout con = (LinearLayout)v.findViewById(R.id.linear_scroll);

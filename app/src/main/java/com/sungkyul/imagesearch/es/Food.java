@@ -13,6 +13,9 @@ public class Food implements Parcelable {
     private String food_menu;
     private String food_rank;
     private String food_category;
+    //21-04-28 위도 경도 추가
+    private String food_latitude;
+    private String food_longitude;
 
     protected Food(Parcel in) {
         title = in.readString();
@@ -24,6 +27,8 @@ public class Food implements Parcelable {
         food_menu = in.readString();
         food_rank = in.readString();
         food_category = in.readString();
+        food_latitude = in.readString();
+        food_longitude = in.readString();
     }
 
     public static final Creator<Food> CREATOR = new Creator<Food>() {
@@ -110,6 +115,22 @@ public class Food implements Parcelable {
         this.food_category = food_category;
     }
 
+    public String getFood_latitude() {
+        return food_latitude;
+    }
+
+    public void setFood_latitude(String food_latitude) {
+        this.food_latitude = food_latitude;
+    }
+
+    public String getFood_longitude() {
+        return food_longitude;
+    }
+
+    public void setFood_longitude(String food_longitude) {
+        this.food_longitude = food_longitude;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -126,7 +147,8 @@ public class Food implements Parcelable {
         dest.writeString(food_menu);
         dest.writeString(food_rank);
         dest.writeString(food_category);
-
+        dest.writeString(food_latitude);
+        dest.writeString(food_longitude);
     }
 
     @Override
@@ -141,6 +163,8 @@ public class Food implements Parcelable {
                 ", food_menu='" + food_menu + '\'' +
                 ", food_rank='" + food_rank + '\'' +
                 ", food_category='" + food_category + '\'' +
+                ", food_latitude='" + food_latitude + '\'' +
+                ", food_longitude='" + food_longitude + '\'' +
                 '}';
     }
 }

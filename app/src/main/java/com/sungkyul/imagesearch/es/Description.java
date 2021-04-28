@@ -10,6 +10,10 @@ public class Description implements Parcelable {
     private String back_open;
     private String back_img;
     private String back_tel;
+    //21-04-28 위도 경도 추가
+    private String back_latitude;
+    private String back_longitude;
+
 
     protected Description(Parcel in) {
         title = in.readString();
@@ -18,6 +22,8 @@ public class Description implements Parcelable {
         back_open = in.readString();
         back_img = in.readString();
         back_tel = in.readString();
+        back_latitude = in.readString();
+        back_longitude = in.readString();
     }
 
     public static final Creator<Description> CREATOR = new Creator<Description>() {
@@ -80,6 +86,21 @@ public class Description implements Parcelable {
         this.back_tel = back_tel;
     }
 
+    public String getBack_latitude() {
+        return back_latitude;
+    }
+
+    public void setBack_latitude(String back_latitude) {
+        this.back_latitude = back_latitude;
+    }
+
+    public String getBack_longitude() {
+        return back_longitude;
+    }
+
+    public void setBack_longitude(String back_longitude) {
+        this.back_longitude = back_longitude;
+    }
 
     @Override
     public String toString() {
@@ -90,6 +111,8 @@ public class Description implements Parcelable {
                 ", back_open='" + back_open + '\'' +
                 ", back_img='" + back_img + '\'' +
                 ", back_tel='" + back_tel + '\'' +
+                ", back_latitude='" + back_latitude + '\'' +
+                ", back_longitude='" + back_longitude + '\'' +
                 '}';
     }
 
@@ -106,5 +129,7 @@ public class Description implements Parcelable {
         dest.writeString(back_open);
         dest.writeString(back_img);
         dest.writeString(back_tel);
+        dest.writeString(back_latitude);
+        dest.writeString(back_longitude);
     }
 }
