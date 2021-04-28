@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -190,9 +191,11 @@ public class DescriptionFragment extends Fragment implements View.OnClickListene
                 AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
                 String noneOpen = descriptions.get(0).getBack_open();
                 String open = noneOpen.replace('.','\n');
+                builder.setTitle("오픈 시간");
                 builder.setMessage(open);
                 builder.setNeutralButton("나가기", null);
                 builder.create().show();
+
         }
     }
 
