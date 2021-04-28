@@ -26,6 +26,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.MapsInitializer;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.sungkyul.imagesearch.OnSwipeTouchListener;
 import com.sungkyul.imagesearch.R;
 import com.sungkyul.imagesearch.es.Description;
@@ -64,6 +72,7 @@ public class DescriptionFragment extends Fragment implements View.OnClickListene
     Button back_address;
     String num;
     List<Description> descriptions;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -108,6 +117,15 @@ public class DescriptionFragment extends Fragment implements View.OnClickListene
             public void onClick(View view) {
                  Intent intent =new Intent(Intent.ACTION_DIAL, Uri.parse(tel));
                  startActivity(intent);
+            }
+        });
+
+        //주소 클릭시 지도띄워주는 이벤트
+        back_address.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                new MapDialogFragment().show(getFragmentManager(),null);
             }
         });
 
@@ -175,4 +193,6 @@ public class DescriptionFragment extends Fragment implements View.OnClickListene
                 builder.create().show();
         }
     }
+
+
 }
