@@ -188,7 +188,9 @@ public class DescriptionFragment extends Fragment implements View.OnClickListene
 
             case R.id.back_open:
                 AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-                builder.setMessage(descriptions.get(0).getBack_open());
+                String noneOpen = descriptions.get(0).getBack_open();
+                String open = noneOpen.replace('.','\n');
+                builder.setMessage(open);
                 builder.setNeutralButton("나가기", null);
                 builder.create().show();
         }
