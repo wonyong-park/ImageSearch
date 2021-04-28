@@ -19,7 +19,6 @@
             android:id="@+id/linear_scroll"
             >
 
-
         </LinearLayout>
 
 

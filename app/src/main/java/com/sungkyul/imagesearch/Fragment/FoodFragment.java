@@ -47,11 +47,14 @@ public class FoodFragment extends Fragment {
     TextView food_title;
 //    TextView food_des;
     TextView food_category;
-    LinearLayout food_click;
+    ImageView food_images[];
+    ImageView food_tels[];
+    ImageView food_opens[];
+    ImageView food_maps[];
 
-    ImageView food_image;
+
     Bitmap bitmap;
-
+    static int count;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -76,14 +79,23 @@ public class FoodFragment extends Fragment {
 
 
         //food의 들어있는 객체만큼 만들어주기
+        count = 0;
+        food_images = new ImageView[foods.size()];
+        food_opens = new ImageView[foods.size()];
+        food_tels = new ImageView[foods.size()];
+        food_maps = new ImageView[foods.size()];
+
         for (Food food : foods){
             Food_Sub n_layout = new Food_Sub(getActivity().getApplicationContext());
             LinearLayout con = (LinearLayout)v.findViewById(R.id.linear_scroll);
             food_title = (TextView)n_layout.findViewById(R.id.food_title);
 //            food_des = (TextView)n_layout.findViewById(R.id.food_des);
-            food_category = (TextView)n_layout.findViewById(R.id.food_category);
-            food_image = (ImageView)n_layout.findViewById(R.id.food_image);
-            food_click = (LinearLayout)n_layout.findViewById(R.id.food_click);
+//            food_category = (TextView)n_layout.findViewById(R.id.food_category);
+            food_images[count] = (ImageView)n_layout.findViewById(R.id.food_image);
+            food_opens[count] = (ImageView)n_layout.findViewById(R.id.food_open);
+            food_tels[count] = (ImageView)n_layout.findViewById(R.id.food_tel);
+            food_maps[count] = (ImageView)n_layout.findViewById(R.id.food_map);
+
 
             //이미지 불러오는 쓰레드
             Thread mThread = new Thread(){
@@ -110,7 +122,7 @@ public class FoodFragment extends Fragment {
 
             try{
                 mThread.join();
-                food_image.setImageBitmap(bitmap);
+                food_images[count].setImageBitmap(bitmap);
             }catch (InterruptedException e){
                 e.printStackTrace();
             }
@@ -124,12 +136,43 @@ public class FoodFragment extends Fragment {
 //                        "\n순위 : " + food.getFood_rank() +
 //                        "\n카테고리 : " + food.getFood_category()
 //                );
-                food_category.setText(food.getFood_category());
             }
 
+            //이미지 버튼 클릭시 이벤트
+            int index = count;
+            food_images[count].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getActivity().getApplicationContext(),foods.get(index).getFood_key() + " 버튼이 눌렸습니다.", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            //전화번호 이미지 클릭시
+            food_tels[count].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getActivity().getApplicationContext(),foods.get(index).getFood_key() + "의 전화번호가 클릭됨", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            //오픈시간 이미지 클릭시
+            food_opens[count].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getActivity().getApplicationContext(),foods.get(index).getFood_key() + " 의 오픈시간이 클릭됨.", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            //지도 이미지 클릭시
+            food_maps[count].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getActivity().getApplicationContext(),foods.get(index).getFood_key() + " 의 지도가 클릭됨.", Toast.LENGTH_SHORT).show();
+                }
+            });
 
 
-
+            count++;
             con.addView(n_layout);
         }
 

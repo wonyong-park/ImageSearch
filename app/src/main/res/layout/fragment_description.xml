@@ -30,9 +30,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="#000000"
+            android:textStyle="bold"
             android:textSize="30dp"
             android:text="검색 타이틀 제목"
-            android:textStyle="bold"
             android:id="@+id/back_title"
             />
 
