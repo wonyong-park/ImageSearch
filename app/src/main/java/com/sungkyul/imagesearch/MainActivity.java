@@ -81,7 +81,6 @@ public class MainActivity extends AppCompatActivity {
 
     //fragment
     private FragmentManager fragmentManager;
-    private SuccessFragment fragment_suceess;
     private CrawlFragment fragment_crawl;
     private NoResultFragment fragment_noresult;
     private DescriptionFragment fragment_description;
@@ -110,7 +109,6 @@ public class MainActivity extends AppCompatActivity {
         //fragment
         fragmentManager = getSupportFragmentManager();
 
-        fragment_suceess = new SuccessFragment();
         fragment_crawl = new CrawlFragment();
         fragment_noresult = new NoResultFragment();
         fragment_description = new DescriptionFragment();

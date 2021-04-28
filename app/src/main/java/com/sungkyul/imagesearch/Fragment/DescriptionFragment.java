@@ -101,6 +101,7 @@ public class DescriptionFragment extends Fragment implements View.OnClickListene
        open = (Button) v.findViewById(R.id.back_open) ;
        open.setOnClickListener((View.OnClickListener) this);
 
+       //전화번호 클릭했을시 이벤트 -> 인텐를 통해서 넘어간다.
         back_tel.setOnClickListener(new View.OnClickListener() {
             String tel = "tel:" + num;
             @Override

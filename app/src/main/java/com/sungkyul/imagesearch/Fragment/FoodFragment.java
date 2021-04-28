@@ -47,6 +47,7 @@ public class FoodFragment extends Fragment {
     TextView food_title;
 //    TextView food_des;
     TextView food_category;
+    LinearLayout food_click;
 
     ImageView food_image;
     Bitmap bitmap;
@@ -82,6 +83,7 @@ public class FoodFragment extends Fragment {
 //            food_des = (TextView)n_layout.findViewById(R.id.food_des);
             food_category = (TextView)n_layout.findViewById(R.id.food_category);
             food_image = (ImageView)n_layout.findViewById(R.id.food_image);
+            food_click = (LinearLayout)n_layout.findViewById(R.id.food_click);
 
             //이미지 불러오는 쓰레드
             Thread mThread = new Thread(){
@@ -124,6 +126,8 @@ public class FoodFragment extends Fragment {
 //                );
                 food_category.setText(food.getFood_category());
             }
+
+
 
 
             con.addView(n_layout);
