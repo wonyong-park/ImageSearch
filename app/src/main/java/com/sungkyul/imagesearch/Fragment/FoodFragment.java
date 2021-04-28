@@ -45,7 +45,8 @@ public class FoodFragment extends Fragment {
     FragmentTransaction transaction;
 
     TextView food_title;
-    TextView food_des;
+//    TextView food_des;
+    TextView food_category;
 
     ImageView food_image;
     Bitmap bitmap;
@@ -78,7 +79,8 @@ public class FoodFragment extends Fragment {
             Food_Sub n_layout = new Food_Sub(getActivity().getApplicationContext());
             LinearLayout con = (LinearLayout)v.findViewById(R.id.linear_scroll);
             food_title = (TextView)n_layout.findViewById(R.id.food_title);
-            food_des = (TextView)n_layout.findViewById(R.id.food_des);
+//            food_des = (TextView)n_layout.findViewById(R.id.food_des);
+            food_category = (TextView)n_layout.findViewById(R.id.food_category);
             food_image = (ImageView)n_layout.findViewById(R.id.food_image);
 
             //이미지 불러오는 쓰레드
@@ -113,13 +115,14 @@ public class FoodFragment extends Fragment {
 
             if(food_title != null){
                 food_title.setText(food.getFood_key());
-                food_des.setText("주소 : " + food.getFood_address() +
-                        "\n영업 시간 : " + food.getFood_open() +
-                        "\n전화 번호 : " + food.getFood_tel() +
-                        "\n메뉴 : " + food.getFood_menu() +
-                        "\n순위 : " + food.getFood_rank() +
-                        "\n카테고리 : " + food.getFood_category()
-                );
+//                food_des.setText("주소 : " + food.getFood_address() +
+//                        "\n영업 시간 : " + food.getFood_open() +
+//                        "\n전화 번호 : " + food.getFood_tel() +
+//                        "\n메뉴 : " + food.getFood_menu() +
+//                        "\n순위 : " + food.getFood_rank() +
+//                        "\n카테고리 : " + food.getFood_category()
+//                );
+                food_category.setText(food.getFood_category());
             }
 
 

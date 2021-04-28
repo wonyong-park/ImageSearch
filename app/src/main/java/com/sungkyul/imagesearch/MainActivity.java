@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -22,9 +21,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.api.client.extensions.android.http.AndroidHttp;
@@ -44,7 +41,6 @@ import com.google.api.services.vision.v1.model.Image;
 import com.sungkyul.imagesearch.Fragment.CrawlFragment;
 import com.sungkyul.imagesearch.Fragment.DescriptionFragment;
 import com.sungkyul.imagesearch.Fragment.NoResultFragment;
-import com.sungkyul.imagesearch.Fragment.SuccessFragment;
 import com.sungkyul.imagesearch.es.Description;
 import com.sungkyul.imagesearch.es.ESDescriptionManager;
 import com.sungkyul.imagesearch.es.ESFoodManager;
