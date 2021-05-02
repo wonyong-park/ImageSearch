@@ -18,10 +18,13 @@ import android.os.Handler;
 import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.api.client.extensions.android.http.AndroidHttp;
@@ -124,6 +127,17 @@ public class MainActivity extends AppCompatActivity {
         descriptions = new ArrayList<>();
         touristManager = new ESTouristManager();
         tourists = new ArrayList<>();
+
+        //텍스트에서 엔터 클릭시
+        edit_keyword.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if(v.getId() == R.id.edit_keword && actionId == EditorInfo.IME_ACTION_DONE){
+                    search.callOnClick();
+                }
+                return false;
+            }
+        });
 
         //카메라 버튼 클릭시
         camera.setOnClickListener(view -> {

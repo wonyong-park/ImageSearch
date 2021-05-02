@@ -1,7 +1,10 @@
 package com.sungkyul.imagesearch.Fragment;
 
+import android.app.AlertDialog;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -18,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sungkyul.imagesearch.Fragment.Sub.Food_Sub;
+import com.sungkyul.imagesearch.MainActivity;
 import com.sungkyul.imagesearch.OnSwipeTouchListener;
 import com.sungkyul.imagesearch.R;
 import com.sungkyul.imagesearch.es.Description;
@@ -153,15 +157,26 @@ public class FoodFragment extends Fragment {
             food_tels[count].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(getActivity().getApplicationContext(),foods.get(index).getFood_key() + "의 전화번호가 클릭됨", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getActivity().getApplicationContext(),foods.get(index).getFood_key() + "의 전화번호가 클릭됨", Toast.LENGTH_SHORT).show();
+                    String tel = "tel:" + foods.get(index).getFood_tel();
+                    Intent intent =new Intent(Intent.ACTION_DIAL, Uri.parse(tel));
+                    startActivity(intent);
                 }
+
             });
 
             //오픈시간 이미지 클릭시
             food_opens[count].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(getActivity().getApplicationContext(),foods.get(index).getFood_key() + " 의 오픈시간이 클릭됨.", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getActivity().getApplicationContext(),foods.get(index).getFood_key() + " 의 오픈시간이 클릭됨.", Toast.LENGTH_SHORT).show();
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    String noneOpen = foods.get(index).getFood_open();
+                    String open = noneOpen.replace('.','\n');
+                    builder.setTitle("오픈 시간");
+                    builder.setMessage(open);
+                    builder.setNeutralButton("나가기", null);
+                    builder.create().show();
                 }
             });
 
@@ -173,7 +188,7 @@ public class FoodFragment extends Fragment {
                     Float latitude = Float.parseFloat(foods.get(index).getFood_latitude());
                     Float longitude = Float.parseFloat(foods.get(index).getFood_longitude());
 
-                    Toast.makeText(getActivity().getApplicationContext(),latitude + "," + longitude, Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getActivity().getApplicationContext(),latitude + "," + longitude, Toast.LENGTH_SHORT).show();
 
                     FoodMapFragment = new MapDialogFragment(latitude, longitude);
                     FoodMapFragment.show(getFragmentManager(),null);

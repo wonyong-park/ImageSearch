@@ -51,7 +51,6 @@ public class MapDialogFragment extends DialogFragment implements OnMapReadyCallb
         try {
             rootView = inflater.inflate(R.layout.maps, container, false);
             mapFragment = (SupportMapFragment) getFragmentManager().findFragmentById(R.id.map);
-            if(marker != null) marker.remove();
             mapFragment.getMapAsync(this);
         }catch (InflateException e){
 
@@ -78,6 +77,8 @@ public class MapDialogFragment extends DialogFragment implements OnMapReadyCallb
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        //마커가 기존에 있다면 지우기위한 부분
+        if(marker != null) marker.remove();
         mMap = googleMap;
 //        mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
 //        mMap.setMapType(GoogleMap.MAP_TYPE_NONE);
