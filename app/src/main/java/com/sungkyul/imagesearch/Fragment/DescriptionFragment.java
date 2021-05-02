@@ -74,6 +74,8 @@ public class DescriptionFragment extends Fragment implements View.OnClickListene
     String num;
     List<Description> descriptions;
 
+    MapDialogFragment DescriptionMapFragment;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -126,7 +128,11 @@ public class DescriptionFragment extends Fragment implements View.OnClickListene
 
             @Override
             public void onClick(View v) {
-                new MapDialogFragment().show(getFragmentManager(),null);
+                Float latitude = Float.parseFloat(descriptions.get(0).getBack_latitude());
+                Float longitude = Float.parseFloat(descriptions.get(0).getBack_longitude());
+
+                DescriptionMapFragment = new MapDialogFragment(latitude, longitude);
+                DescriptionMapFragment.show(getFragmentManager(),null);
             }
         });
 
