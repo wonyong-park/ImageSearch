@@ -11,9 +11,9 @@
   <h3 align="center">이 사진의 대한 정보를 알려줘</h3>
 
   <p align="center">
-    세상 어디에도, 어떤 검색 엔진에도 뜨지않는 이 사진의 정보를 알려주는 멋진 프로젝트!
+    세상 어디에도, 어떤 검색 엔진에도 뜨지않는 사진 속의 많은 정보를 알려주는 멋진 프로젝트!
     <br />
-   <strong> 관련 자료 </strong>
+   <strong> 관련 문서 </strong>
     <br />
     <br />
     <a href="">프로젝트 제안서 1</a>
@@ -33,7 +33,7 @@
     <li>
       <a href="#about-the-project">About The Project</a>
       <ul>
-        <li><a href="#built-with">USED API</a></li>
+        <li><a href="#USED-API">USED API</a></li>
       </ul>
     </li>
     <li>
@@ -57,24 +57,14 @@
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
 
-많은 훌륭한 검색엔진이 많이 
+요즘 핫한 SNS에 있는 사진들을 보다 보면 사진 속에 정보(옷, 배경, 음식 등)가 궁금한 경우가 많았다. 
+가끔 해시태그를 통하여 궁금한 사진의 게시글에 정보가 포함되어 있는 경우도 있지만, 내가 원하는 정보가 포함되어 있지 않은 경우가 대부분였다.</br>
+이러한 이슈를 해결해주기 위해 단 한장의 사진만 가지고 있으면 그 사진 속안에 있는 사용자가 원하는 정보를 제공해주는 서비스를 제공하고자 한다.
 
-Here's why:
-* Your time should be focused on creating something amazing. A project that solves a problem and helps others
-* You shouldn't be doing the same tasks over and over like creating a README from scratch
-* You should element DRY principles to the rest of your life :smile:
-
-Of course, no one template will serve all projects since your needs may be different. So I'll be adding more in the near future. You may also suggest changes by forking this repo and creating a pull request or opening an issue. Thanks to all the people have have contributed to expanding this template!
-
-A list of commonly used resources that I find helpful are listed in the acknowledgements.
-
-### Built With
-
-This section should list any major frameworks that you built your project using. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
-* [Bootstrap](https://getbootstrap.com)
+### USED API
+해당 절에는 프로젝트를 만들면서 사용한 주요 API가 나열되어 있습니다.
+* [Google Vision AI](https://cloud.google.com/vision?utm_source=naver&utm_medium=cpc&utm_campaign=japac-KR-all-ko-dr-bkws-all-all-trial-none-na-1009882&utm_content=text-blank_slate-none-none-DEV_c-CRE_%7Bcreative%7D-ADGP_-KWID_700000002227900-%7BTargetId%7D&utm_term=KW_%7Bkeyword%3Adefault%7D-%EA%B5%AC%EA%B8%80%EB%B9%84%EC%A0%84API&gclid=CKjEp__QufACFZWXvAod08kNEQ&gclsrc=ds)
 * [JQuery](https://jquery.com)
-* [Laravel](https://laravel.com)
-
 
 
 <!-- GETTING STARTED -->
@@ -128,10 +118,10 @@ Distributed under the MIT License. See `LICENSE` for more information.
 <!-- CONTACT -->
 ## Contact
 
-황혁주 - [@git](https://github.com/huckjuhwang) - skygurwn96@naver.com
-박원용 - [@git](https://github.com/huckjuhwang) - skygurwn96@naver.com
-홍석용 - [@git](https://github.com/huckjuhwang) - skygurwn96@naver.com
-오승환 - [@git](https://github.com/huckjuhwang) - skygurwn96@naver.com
+황혁주 - [@git](https://github.com/huckjuhwang) - skygurwn96@naver.com    <br />
+박원용 - [@git](https://github.com/huckjuhwang) - wanyong0919@naver.com    <br />
+홍석용 - [@git](https://github.com/huckjuhwang) - ehfdyd55@naver.com   <br />
+오승환 - [@git](https://github.com/huckjuhwang) - hawk0987@naver.com    <br />
 
 
 
