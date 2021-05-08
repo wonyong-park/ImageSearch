@@ -5,13 +5,14 @@
 <br />
 <p align="center">
   <a href="https://github.com/othneildrew/Best-README-Template">
-    <!-- <img src="images/logo.png" alt="Logo" width="80" height="80"> -->
+
+  <img src="https://user-images.githubusercontent.com/47339929/117532491-c70fa500-b022-11eb-8e6f-2735b7ab193b.png" alt="Logo" width="80" height="80"> 
   </a>
 
   <h3 align="center">이 사진의 대한 정보를 알려줘</h3>
 
   <p align="center">
-    세상 어디에도, 어떤 검색 엔진에도 뜨지않는 사진 속의 많은 정보를 알려주는 멋진 프로젝트!
+    세상 어디에도, 어떤 검색 엔진에도 뜨지않는 사진 속의 많은 정보를 알려주는 멋진 프로젝트!     <br />
     <br />
    <strong> 관련 문서 </strong>
     <br />
