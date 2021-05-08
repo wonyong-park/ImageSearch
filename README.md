@@ -71,8 +71,8 @@
 해당 프로젝트를 실행하려면 다음과 같은 단계를 따라가 주세요.
 
 ### Prerequisites
-1. JDK version `12.0.1`
-2. SDK version `Android 7.1`
+1. JDK version `1.8.0`
+2. SDK version `Android 6.5`
 
 ### Installation
 
