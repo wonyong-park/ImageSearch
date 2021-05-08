@@ -16,8 +16,7 @@
     <br />
    <strong> 관련 문서 </strong>
     <br />
-    <br />
-    <a href="">프로젝트 제안서 1</a>
+    <a href="">프로젝트 제안서</a>
     ·
     <a href="">Report Bug</a>
     ·
