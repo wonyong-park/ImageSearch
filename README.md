@@ -43,7 +43,7 @@
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
+    <li><a href="#tech-stack">tech stack</a></li>
     <li><a href="#contact">Contact</a></li>
   </ol>
 </details>
@@ -98,11 +98,18 @@ This is an example of how to list things you need to use the software and how to
 
 
 <!-- USAGE EXAMPLES -->
-## Usage
+## tech stack
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+### Client
+- Android
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+### Server
+- Elasticsearch
+- logstash
+- JSP
+- crawling
+- REST
+- MYSQL
 
 
 
