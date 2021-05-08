@@ -68,30 +68,20 @@
 
 <!-- GETTING STARTED -->
 ## Getting Started
-
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
+로컬에서 프로젝트를 설정하는 방법을 명시해 놨습니다.
+해당 프로젝트를 실행하려면 다음과 같은 단계를 따라가 주세요.
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
 
 ### Installation
 
-1. Get a free API Key at [https://example.com](https://example.com)
+1. Get a free API Key at [Google Vision API](https://cloud.google.com/vision?utm_source=naver&utm_medium=cpc&utm_campaign=japac-KR-all-ko-dr-bkws-all-all-trial-none-na-1009882&utm_content=text-blank_slate-none-none-DEV_c-CRE_%7Bcreative%7D-ADGP_-KWID_700000002227900-%7BTargetId%7D&utm_term=KW_%7Bkeyword%3Adefault%7D-%EA%B5%AC%EA%B8%80%EB%B9%84%EC%A0%84API&gclid=CKjEp__QufACFZWXvAod08kNEQ&gclsrc=ds)
 2. Clone the repo
    ```sh
-   git clone https://github.com/your_username_/Project-Name.git
+   git clone https://github.com/wonyong-park/ImageSearch.git
    ```
-3. Install NPM packages
-   ```sh
-   npm install
-   ```
-4. Enter your API in `config.js`
+3. Enter your API in `config.java`
    ```JS
    const API_KEY = 'ENTER YOUR API';
    ```
