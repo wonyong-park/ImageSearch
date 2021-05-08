@@ -73,7 +73,6 @@
 
 ### Prerequisites
 
-
 ### Installation
 
 1. Get a free API Key at [Google Vision API](https://cloud.google.com/vision?utm_source=naver&utm_medium=cpc&utm_campaign=japac-KR-all-ko-dr-bkws-all-all-trial-none-na-1009882&utm_content=text-blank_slate-none-none-DEV_c-CRE_%7Bcreative%7D-ADGP_-KWID_700000002227900-%7BTargetId%7D&utm_term=KW_%7Bkeyword%3Adefault%7D-%EA%B5%AC%EA%B8%80%EB%B9%84%EC%A0%84API&gclid=CKjEp__QufACFZWXvAod08kNEQ&gclsrc=ds)
@@ -81,9 +80,9 @@
    ```sh
    git clone https://github.com/wonyong-park/ImageSearch.git
    ```
-3. Enter your API in `config.java`
+3. Enter your API in `MainActivity.java`
    ```JS
-   const API_KEY = 'ENTER YOUR API';
+   private static final String CLOUD_VISION_API_KEY = "ENTER YOUR API";
    ```
 
 
