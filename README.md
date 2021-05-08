@@ -44,9 +44,7 @@
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
-    <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgements">Acknowledgements</a></li>
   </ol>
 </details>
 
@@ -64,7 +62,7 @@
 ### USED API
 해당 절에는 프로젝트를 만들면서 사용한 주요 API가 나열되어 있습니다.
 * [Google Vision AI](https://cloud.google.com/vision?utm_source=naver&utm_medium=cpc&utm_campaign=japac-KR-all-ko-dr-bkws-all-all-trial-none-na-1009882&utm_content=text-blank_slate-none-none-DEV_c-CRE_%7Bcreative%7D-ADGP_-KWID_700000002227900-%7BTargetId%7D&utm_term=KW_%7Bkeyword%3Adefault%7D-%EA%B5%AC%EA%B8%80%EB%B9%84%EC%A0%84API&gclid=CKjEp__QufACFZWXvAod08kNEQ&gclsrc=ds)
-* [JQuery](https://jquery.com)
+* [Naver papago API](https://developers.naver.com/docs/papago/)
 
 
 <!-- GETTING STARTED -->
@@ -108,53 +106,20 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 
 
 
-<!-- LICENSE -->
-## License
-
-Distributed under the MIT License. See `LICENSE` for more information.
-
-
 
 <!-- CONTACT -->
 ## Contact
 
 황혁주 - [@git](https://github.com/huckjuhwang) - skygurwn96@naver.com    <br />
-박원용 - [@git](https://github.com/huckjuhwang) - wanyong0919@naver.com    <br />
-홍석용 - [@git](https://github.com/huckjuhwang) - ehfdyd55@naver.com   <br />
-오승환 - [@git](https://github.com/huckjuhwang) - hawk0987@naver.com    <br />
-
-
-
-<!-- ACKNOWLEDGEMENTS -->
-## Acknowledgements
-* [GitHub Emoji Cheat Sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet)
-* [Img Shields](https://shields.io)
-* [Choose an Open Source License](https://choosealicense.com)
-* [GitHub Pages](https://pages.github.com)
-* [Animate.css](https://daneden.github.io/animate.css)
-* [Loaders.css](https://connoratherton.com/loaders)
-* [Slick Carousel](https://kenwheeler.github.io/slick)
-* [Smooth Scroll](https://github.com/cferdinandi/smooth-scroll)
-* [Sticky Kit](http://leafo.net/sticky-kit)
-* [JVectorMap](http://jvectormap.com)
-* [Font Awesome](https://fontawesome.com)
+박원용 - [@git](https://github.com/wonyong-park) - wanyong0919@naver.com    <br />
+홍석용 - [@git](https://github.com/seokhong962) - ehfdyd55@naver.com   <br />
+오승환 - [@git](https://github.com/seokhong962) - hawk0987@naver.com    <br />
 
 
 
 
 
-<!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/othneildrew/Best-README-Template.svg?style=for-the-badge
-[contributors-url]: https://github.com/othneildrew/Best-README-Template/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/othneildrew/Best-README-Template.svg?style=for-the-badge
-[forks-url]: https://github.com/othneildrew/Best-README-Template/network/members
-[stars-shield]: https://img.shields.io/github/stars/othneildrew/Best-README-Template.svg?style=for-the-badge
-[stars-url]: https://github.com/othneildrew/Best-README-Template/stargazers
-[issues-shield]: https://img.shields.io/github/issues/othneildrew/Best-README-Template.svg?style=for-the-badge
-[issues-url]: https://github.com/othneildrew/Best-README-Template/issues
-[license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=for-the-badge
-[license-url]: https://github.com/othneildrew/Best-README-Template/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/othneildrew
-[product-screenshot]: images/screenshot.png
+
+
+
+
