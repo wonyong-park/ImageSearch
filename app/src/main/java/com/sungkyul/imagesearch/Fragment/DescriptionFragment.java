@@ -130,8 +130,8 @@ public class DescriptionFragment extends Fragment implements View.OnClickListene
             public void onClick(View v) {
                 Float latitude = Float.parseFloat(descriptions.get(0).getBack_latitude());
                 Float longitude = Float.parseFloat(descriptions.get(0).getBack_longitude());
-
-                DescriptionMapFragment = new MapDialogFragment(latitude, longitude);
+                String address = descriptions.get(0).getBack_address();
+                DescriptionMapFragment = new MapDialogFragment(latitude, longitude,address);
                 DescriptionMapFragment.show(getFragmentManager(),null);
             }
         });

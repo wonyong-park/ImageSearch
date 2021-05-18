@@ -5,12 +5,12 @@ import android.os.Parcelable;
 
 public class Tourist implements Parcelable {
     public String title;//
-    private String tourist_key;//
-    private String tourist_address;//
-    private String tourist_open;//
-    private String tourist_img;//
-    private String tourist_latitude;
-    private String tourist_longitude;
+    private String tourist_key;//관광지 이름
+    private String tourist_address;//관광지 주소
+    private String tourist_open;//관광지 오픈시간
+    private String tourist_img;//관광지 이미지
+    private String tourist_latitude;//위도
+    private String tourist_longitude;//경도
 
     protected Tourist(Parcel in) {
         title = in.readString();
@@ -72,6 +72,22 @@ public class Tourist implements Parcelable {
 
     public void setTourist_img(String tourist_img) {
         this.tourist_img = tourist_img;
+    }
+
+    public String getTourist_latitude() {
+        return tourist_latitude;
+    }
+
+    public void setTourist_latitude(String tourist_latitude) {
+        this.tourist_latitude = tourist_latitude;
+    }
+
+    public String getTourist_longitude() {
+        return tourist_longitude;
+    }
+
+    public void setTourist_longitude(String tourist_longitude) {
+        this.tourist_longitude = tourist_longitude;
     }
 
     @Override

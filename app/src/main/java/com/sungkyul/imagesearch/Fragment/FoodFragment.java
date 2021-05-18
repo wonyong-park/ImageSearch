@@ -205,10 +205,10 @@ public class FoodFragment extends Fragment {
 
                     Float latitude = Float.parseFloat(foods.get(index).getFood_latitude());
                     Float longitude = Float.parseFloat(foods.get(index).getFood_longitude());
-
+                    String address = foods.get(index).getFood_address();
 //                    Toast.makeText(getActivity().getApplicationContext(),latitude + "," + longitude, Toast.LENGTH_SHORT).show();
 
-                    FoodMapFragment = new MapDialogFragment(latitude, longitude);
+                    FoodMapFragment = new MapDialogFragment(latitude, longitude, address);
                     FoodMapFragment.show(getFragmentManager(),null);
 
                 }

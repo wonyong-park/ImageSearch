@@ -23,20 +23,22 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.sungkyul.imagesearch.R;
 
-public class MapDialogFragment extends DialogFragment implements OnMapReadyCallback {
+public class MapDialogFragment extends DialogFragment implements OnMapReadyCallback{
 
     GoogleMap mMap;
     private static View rootView;
     float latitude; //위도
     float longitude; //경도
+    String address;
     static SupportMapFragment mapFragment;
     Button btnOk;
     static Marker marker;
 
-    public MapDialogFragment(float latitude, float longitude) {
+    public MapDialogFragment(float latitude, float longitude, String address) {
         // Required empty public constructor
         this.latitude = latitude;
         this.longitude = longitude;
+        this.address = address;
     }
 
     @Override
@@ -92,7 +94,7 @@ public class MapDialogFragment extends DialogFragment implements OnMapReadyCallb
         Log.i("OnMapReady", "latitude : " + latitude + "\tlongitude : " + longitude);
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(latLng);
-        markerOptions.title("Current Position");
+        markerOptions.title(address);
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
         marker = mMap.addMarker(markerOptions);
     }
