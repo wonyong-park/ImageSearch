@@ -49,11 +49,12 @@ public class FoodFragment extends Fragment {
     FragmentTransaction transaction;
 
     TextView food_title;
-//    TextView food_des;
     TextView food_category;
+//    TextView food_des;
     ImageView food_images[];
     ImageView food_tels[];
     ImageView food_opens[];
+    ImageView food_menus[];
     ImageView food_maps[];
 
     MapDialogFragment FoodMapFragment;
@@ -88,6 +89,7 @@ public class FoodFragment extends Fragment {
         count = 0;
         food_images = new ImageView[foods.size()];
         food_opens = new ImageView[foods.size()];
+        food_menus = new ImageView[foods.size()];
         food_tels = new ImageView[foods.size()];
         food_maps = new ImageView[foods.size()];
 
@@ -95,10 +97,11 @@ public class FoodFragment extends Fragment {
             Food_Sub n_layout = new Food_Sub(getActivity().getApplicationContext());
             LinearLayout con = (LinearLayout)v.findViewById(R.id.linear_scroll);
             food_title = (TextView)n_layout.findViewById(R.id.food_title);
+            food_category = (TextView)n_layout.findViewById(R.id.food_category);
 //            food_des = (TextView)n_layout.findViewById(R.id.food_des);
-//            food_category = (TextView)n_layout.findViewById(R.id.food_category);
             food_images[count] = (ImageView)n_layout.findViewById(R.id.food_image);
             food_opens[count] = (ImageView)n_layout.findViewById(R.id.food_open);
+            food_menus[count] = (ImageView)n_layout.findViewById(R.id.food_menu);
             food_tels[count] = (ImageView)n_layout.findViewById(R.id.food_tel);
             food_maps[count] = (ImageView)n_layout.findViewById(R.id.food_map);
 
@@ -135,6 +138,7 @@ public class FoodFragment extends Fragment {
 
             if(food_title != null){
                 food_title.setText(food.getFood_key());
+                food_category.setText(" ("+food.getFood_category()+")");
 //                food_des.setText("주소 : " + food.getFood_address() +
 //                        "\n영업 시간 : " + food.getFood_open() +
 //                        "\n전화 번호 : " + food.getFood_tel() +
@@ -175,6 +179,20 @@ public class FoodFragment extends Fragment {
                     String open = noneOpen.replace('.','\n');
                     builder.setTitle("오픈 시간");
                     builder.setMessage(open);
+                    builder.setNeutralButton("나가기", null);
+                    builder.create().show();
+                }
+            });
+
+            //메뉴시간 이미지 클릭시
+            food_menus[count].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    String noneMenu = foods.get(index).getFood_menu();
+                    String menu = noneMenu.replace("원 ","원\n");
+                    builder.setTitle("메뉴");
+                    builder.setMessage(menu);
                     builder.setNeutralButton("나가기", null);
                     builder.create().show();
                 }
