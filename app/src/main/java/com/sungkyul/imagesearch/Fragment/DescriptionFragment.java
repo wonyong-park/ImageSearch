@@ -75,6 +75,10 @@ public class DescriptionFragment extends Fragment implements View.OnClickListene
     List<Description> descriptions;
 
     MapDialogFragment DescriptionMapFragment;
+    public static DescriptionFragment newInstance() {
+        DescriptionFragment tab1 = new DescriptionFragment();
+        return tab1;
+    }
 
 
     @Override
@@ -170,22 +174,7 @@ public class DescriptionFragment extends Fragment implements View.OnClickListene
         }
 
 
-        linear_des.setOnTouchListener(new OnSwipeTouchListener(getActivity().getApplicationContext()){
-            @Override
-            public void onSwipeRight() {
-                fragment_tourist.setArguments(bundle);
-                transaction.replace(R.id.frameLayout, fragment_tourist);
-                transaction.commit();
-            }
 
-            @Override
-            public void onSwipeLeft() {
-                fragment_food.setArguments(bundle);
-                transaction.replace(R.id.frameLayout, fragment_food);
-                transaction.commit();
-            }
-
-        });
         return v;
     }
 

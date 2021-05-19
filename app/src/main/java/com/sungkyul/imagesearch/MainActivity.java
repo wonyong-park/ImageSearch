@@ -1,17 +1,21 @@
 package com.sungkyul.imagesearch;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.viewpager.widget.ViewPager;
 
 import android.Manifest;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -27,6 +31,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.tabs.TabLayout;
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.googleapis.json.GoogleJsonResponseException;
 import com.google.api.client.http.HttpTransport;
@@ -43,7 +48,9 @@ import com.google.api.services.vision.v1.model.Feature;
 import com.google.api.services.vision.v1.model.Image;
 import com.sungkyul.imagesearch.Fragment.CrawlFragment;
 import com.sungkyul.imagesearch.Fragment.DescriptionFragment;
+import com.sungkyul.imagesearch.Fragment.FoodFragment;
 import com.sungkyul.imagesearch.Fragment.NoResultFragment;
+import com.sungkyul.imagesearch.Fragment.TouristFragment;
 import com.sungkyul.imagesearch.es.Description;
 import com.sungkyul.imagesearch.es.ESDescriptionManager;
 import com.sungkyul.imagesearch.es.ESFoodManager;
@@ -63,6 +70,8 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+
+
     private static final String CLOUD_VISION_API_KEY = "AIzaSyB3iTyz3iIIZs2s-8vHHPOXbvxE9PROLeg";
     public static final String FILE_NAME = "temp.jpg";
     private static final String ANDROID_CERT_HEADER = "X-Android-Cert";
@@ -81,12 +90,16 @@ public class MainActivity extends AppCompatActivity {
 //    private ImageView mMainImage;
     private EditText edit_keyword;
     private LinearLayout recommendkeyword;
+    private ArrayList <String> tabNames = new ArrayList<>();
+    TabLayout tabs;
 
     //fragment
     private FragmentManager fragmentManager;
     private CrawlFragment fragment_crawl;
     private NoResultFragment fragment_noresult;
-    private DescriptionFragment fragment_description;
+    DescriptionFragment fragment_description;
+    FoodFragment fragment_food;
+    TouristFragment fragment_tourist;
     private FragmentTransaction transaction;
 
     //ES
@@ -108,7 +121,6 @@ public class MainActivity extends AppCompatActivity {
         ImageButton camera = findViewById(R.id.camera);
         edit_keyword = findViewById(R.id.edit_keword);
         recommendkeyword = findViewById(R.id.recommendkeyword);
-
         //fragment
         fragmentManager = getSupportFragmentManager();
 
@@ -152,6 +164,7 @@ public class MainActivity extends AppCompatActivity {
 
         //검색 버튼 클릭시
         search.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View v) {
 
@@ -176,15 +189,53 @@ public class MainActivity extends AppCompatActivity {
                     // 1. Elasticsearch에 결과가 있는경우 --> ! des,food,tourist.isEmpty()
                     Log.i(TAG, "키워드 검색 -> 엘라스틱 서치에 결과가 있다.");
 
+                    fragment_description = new DescriptionFragment();
+                    fragment_food = new FoodFragment();
+                    fragment_tourist = new TouristFragment();
+
                     //검색이 성공한경우 bundle에 담아서 프래그먼트로 전송
                     Bundle bundle = new Bundle();
                     bundle.putParcelableArrayList("des_list" ,(ArrayList<? extends Parcelable>) descriptions);
                     bundle.putParcelableArrayList("food_list" ,(ArrayList<? extends Parcelable>) foods);
                     bundle.putParcelableArrayList("tourist_list" ,(ArrayList<? extends Parcelable>) tourists);
-
                     fragment_description.setArguments(bundle);
-                    onFragmentChange(0); //successFragment로 변경
+                    fragment_food.setArguments(bundle);
+                    fragment_tourist.setArguments(bundle);
 
+
+                    getSupportFragmentManager().beginTransaction().add(R.id.frameLayout, fragment_description).commit();
+
+                    tabs = findViewById(R.id.tabs);
+                    tabs.addTab(tabs.newTab().setText("설명"));
+                    tabs.addTab(tabs.newTab().setText("음식"));
+                    tabs.addTab(tabs.newTab().setText("관광지"));
+
+                    tabs.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+                        @Override
+                        public void onTabSelected(TabLayout.Tab tab) {
+                            int position = tab.getPosition();
+                            Fragment selected = null;
+                            if(position == 0)
+                                selected = fragment_description;
+                            else if(position == 1)
+                                selected = fragment_food;
+                            else if(position == 2)
+                                selected = fragment_tourist;
+                            getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, selected).commit();
+                        }
+
+                        @Override
+                        public void onTabUnselected(TabLayout.Tab tab) {
+
+                        }
+
+                        @Override
+                        public void onTabReselected(TabLayout.Tab tab) {
+
+                        }
+                    });
+
+                    onFragmentChange(0);
                 }else{
                     // 2. Elasticsearch에 결과가 없는경우 --> des,food,tourist.isEmpty()
                     Log.i(TAG, "키워드 검색 -> 결과가 없다.");

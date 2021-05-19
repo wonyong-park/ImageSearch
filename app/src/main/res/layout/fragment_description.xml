@@ -8,6 +8,15 @@
     android:id="@+id/Linear_des"
     tools:context=".Fragment.DescriptionFragment">
 
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="640px"
@@ -22,7 +31,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="5dp"
-
         android:orientation="vertical"
         >
 
@@ -45,6 +53,7 @@
             android:text="검색 설명 가나다라마바사 아자차카 타파하검색 설명 가나다라마바사 아자차카 타파하검색 설명 가나다라마바사 아자차카 타파하검색 설명 가나다라마바사 아자차카 타파하검색 설명 가나다라마바사 아자차카 타파하검색 설명 가나다라마바사 아자차카 타파하검색 설명 가나다라마바사 아자차카 타파하검색 설명 가나다라마바사 아자차카 타파하"
             android:id="@+id/back_des"
             />
+    </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -122,8 +131,7 @@
                 />
 
         </LinearLayout>
-
-
-
     </LinearLayout>
-</LinearLayout>
+    </ScrollView>
+    </LinearLayout>
+

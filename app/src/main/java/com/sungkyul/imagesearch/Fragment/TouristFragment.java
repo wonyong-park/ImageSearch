@@ -52,6 +52,11 @@ public class TouristFragment extends Fragment {
 
     MapDialogFragment TouristMapFragment;
 
+    public static TouristFragment newInstance() {
+        TouristFragment tab3 = new TouristFragment();
+        return tab3;
+    }
+
     Bitmap bitmap;
     static int count;
 
@@ -172,38 +177,10 @@ public class TouristFragment extends Fragment {
         }
 
         linear_scroll_tou.setOnTouchListener(new OnSwipeTouchListener(getActivity().getApplicationContext()){
-            @Override
-            public void onSwipeRight() {
-                fragment_food.setArguments(bundle);
-                transaction.replace(R.id.frameLayout, fragment_food);
-                transaction.commit();
-            }
-
-            @Override
-            public void onSwipeLeft() {
-                fragment_description.setArguments(bundle);
-                transaction.replace(R.id.frameLayout, fragment_description);
-                transaction.commit();
-            }
 
         });
 
-        linear_tourist.setOnTouchListener(new OnSwipeTouchListener(getActivity().getApplicationContext()){
-            @Override
-            public void onSwipeRight() {
-                fragment_food.setArguments(bundle);
-                transaction.replace(R.id.frameLayout, fragment_food);
-                transaction.commit();
-            }
 
-            @Override
-            public void onSwipeLeft() {
-                fragment_description.setArguments(bundle);
-                transaction.replace(R.id.frameLayout, fragment_description);
-                transaction.commit();
-            }
-
-        });
 
         return v;
     }

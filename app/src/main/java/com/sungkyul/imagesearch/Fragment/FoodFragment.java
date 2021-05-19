@@ -59,6 +59,12 @@ public class FoodFragment extends Fragment {
 
     MapDialogFragment FoodMapFragment;
 
+    public static FoodFragment newInstance() {
+        FoodFragment tab2 = new FoodFragment();
+        return tab2;
+    }
+
+
 
     Bitmap bitmap;
     static int count;
@@ -219,39 +225,8 @@ public class FoodFragment extends Fragment {
             con.addView(n_layout);
         }
 
-        //
-
-        linear_food.setOnTouchListener(new OnSwipeTouchListener(getActivity().getApplicationContext()){
-            @Override
-            public void onSwipeRight() {
-                fragment_description.setArguments(bundle);
-                transaction.replace(R.id.frameLayout, fragment_description);
-                transaction.commit();
-            }
-
-            @Override
-            public void onSwipeLeft() {
-                fragment_tourist.setArguments(bundle);
-                transaction.replace(R.id.frameLayout, fragment_tourist);
-                transaction.commit();
-            }
-
-        });
 
         linear_scroll.setOnTouchListener(new OnSwipeTouchListener(getActivity().getApplicationContext()){
-            @Override
-            public void onSwipeRight() {
-                fragment_description.setArguments(bundle);
-                transaction.replace(R.id.frameLayout, fragment_description);
-                transaction.commit();
-            }
-
-            @Override
-            public void onSwipeLeft() {
-                fragment_tourist.setArguments(bundle);
-                transaction.replace(R.id.frameLayout, fragment_tourist);
-                transaction.commit();
-            }
 
         });
 
