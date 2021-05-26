@@ -62,8 +62,8 @@
         android:background="@android:color/background_light"
         app:tabMode="fixed"
         app:tabGravity="fill"
-        app:tabTextColor="@color/colorPrimary"
-        app:tabSelectedTextColor="@color/colorAccent" />
+        app:tabTextColor="#000000"
+        app:tabSelectedTextColor="@color/colorPrimary" />
 
     <FrameLayout
         android:id="@+id/frameLayout"
