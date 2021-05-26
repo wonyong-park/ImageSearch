@@ -17,6 +17,18 @@
         android:layout_marginTop="20dp"
         >
 
+        <ImageView
+            android:id="@+id/crawl_image"
+            android:layout_width="match_parent"
+            android:layout_height="243dp"
+            android:src="@drawable/sorryicon" />
+
+        <TextView
+            android:id="@+id/test_crawl_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -110,6 +110,11 @@ public class MainActivity extends AppCompatActivity {
     private ITouristManager touristManager;
     private List<Tourist> tourists;
 
+    //crawl
+    private Uri crawluri;
+    private Bitmap crawlBitmap;
+
+
 
 
     @Override
@@ -301,10 +306,13 @@ public class MainActivity extends AppCompatActivity {
 
         if (requestCode == GALLERY_IMAGE_REQUEST && resultCode == RESULT_OK && data != null) {
             uploadImage(data.getData());
+            Log.i("data.getData()to", data.getData().toString());
+            Log.i("data.toString()", data.toString());
             // content://com.google.android.apps.docs.storage/document/acc%3D1%3Bdoc%3Dencoded%3Dgss2Sqjm2NIucVg93PJvTJSr%2FlGe8iq85aF1v1Nb9W3CQZXtckqc
         } else if (requestCode == CAMERA_IMAGE_REQUEST && resultCode == RESULT_OK) {
             Uri photoUri = FileProvider.getUriForFile(this, getApplicationContext().getPackageName() + ".provider", getCameraFile());
             uploadImage(photoUri);
+            Log.i("photoUri.toString()", photoUri.toString());
         }
     }
 
@@ -329,12 +337,19 @@ public class MainActivity extends AppCompatActivity {
     public void uploadImage(Uri uri) {
         if (uri != null) {
             try {
+
+
+
                 // scale the image to save on bandwidth
                 Bitmap bitmap =
                         scaleBitmapDown(
                                 MediaStore.Images.Media.getBitmap(getContentResolver(), uri),
                                 MAX_DIMENSION);
                 Log.i("uri ==> ",  uri.getPath());
+
+                //crawl을 위한 임시저장 변수
+                crawluri = uri;
+                crawlBitmap = bitmap;
 //                String str = uri.getPath();
 //                edit_keyword.setText(uri.getPath());
 
@@ -611,6 +626,15 @@ public class MainActivity extends AppCompatActivity {
         } else {
             //vision ai => x --> 크롤로 가야함
             message.append("키워드 추출 실패");
+
+            //Crawl 위한 번들
+            Bundle bundle = new Bundle();
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            crawlBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            byte[] byteArray = stream.toByteArray();
+            bundle.putByteArray("image",byteArray);
+            fragment_crawl.setArguments(bundle);
+
             onFragmentChange(1);
             Log.i("onFragmentChange => 1 ", "1번으로 변경 => 크롤");
         }
