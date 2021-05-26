@@ -124,9 +124,9 @@ public class MainActivity extends AppCompatActivity {
         //fragment
         fragmentManager = getSupportFragmentManager();
 
+
         fragment_crawl = new CrawlFragment();
         fragment_noresult = new NoResultFragment();
-        fragment_description = new DescriptionFragment();
 
         transaction = fragmentManager.beginTransaction();
 //        transaction.replace(R.id.frameLayout, fragment_suceess).commitAllowingStateLoss();
@@ -205,14 +205,17 @@ public class MainActivity extends AppCompatActivity {
 
                     getSupportFragmentManager().beginTransaction().add(R.id.frameLayout, fragment_description).commit();
 
-                    tabs = findViewById(R.id.tabs);
-                    tabs.addTab(tabs.newTab().setText("설명"));
-                    tabs.addTab(tabs.newTab().setText("음식"));
-                    tabs.addTab(tabs.newTab().setText("관광지"));
 
-                    tabs.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+                    tabs = findViewById(R.id.tabs);
+                        tabs.removeAllTabs();
+                        tabs.addTab(tabs.newTab().setText("설명"));
+                        tabs.addTab(tabs.newTab().setText("음식"));
+                        tabs.addTab(tabs.newTab().setText("관광지"));
+
+                    tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
                         @Override
                         public void onTabSelected(TabLayout.Tab tab) {
+
                             int position = tab.getPosition();
                             Fragment selected = null;
                             if(position == 0)
@@ -221,8 +224,10 @@ public class MainActivity extends AppCompatActivity {
                                 selected = fragment_food;
                             else if(position == 2)
                                 selected = fragment_tourist;
+
                             getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, selected).commit();
                         }
+
 
                         @Override
                         public void onTabUnselected(TabLayout.Tab tab) {
@@ -519,6 +524,8 @@ public class MainActivity extends AppCompatActivity {
                 }
                 Log.i("keyword ", "번역한 결과 keyword ==> " + keyword);
 
+
+
                 Thread thread = new SearchThread(keyword);
                 thread.start();
                 try {
@@ -529,12 +536,66 @@ public class MainActivity extends AppCompatActivity {
 
                 //vision ai => o, Elasticsearch => o
                 if(!descriptions.isEmpty() && !foods.isEmpty() && !tourists.isEmpty()){
-                    Bundle bundle = new Bundle();
-                    bundle.putParcelableArrayList("des_list" ,(ArrayList<? extends Parcelable>) descriptions);
-                    bundle.putParcelableArrayList("food_list" ,(ArrayList<? extends Parcelable>) foods);
-                    bundle.putParcelableArrayList("tourist_list" ,(ArrayList<? extends Parcelable>) tourists);
 
-                    fragment_description.setArguments(bundle);
+                    fragment_description = new DescriptionFragment();
+                    fragment_food = new FoodFragment();
+                    fragment_tourist = new TouristFragment();
+
+
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            edit_keyword.setText("");
+                            //검색이 성공한경우 bundle에 담아서 프래그먼트로 전송
+                            Bundle bundle = new Bundle();
+                            bundle.putParcelableArrayList("des_list" ,(ArrayList<? extends Parcelable>) descriptions);
+                            bundle.putParcelableArrayList("food_list" ,(ArrayList<? extends Parcelable>) foods);
+                            bundle.putParcelableArrayList("tourist_list" ,(ArrayList<? extends Parcelable>) tourists);
+                            fragment_description.setArguments(bundle);
+                            fragment_food.setArguments(bundle);
+                            fragment_tourist.setArguments(bundle);
+                            //getSupportFragmentManager().beginTransaction().add(R.id.frameLayout, fragment_description).commit();
+                        }
+                    });
+
+                    tabs = findViewById(R.id.tabs);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            tabs.removeAllTabs();
+                            tabs.addTab(tabs.newTab().setText("설명"));
+                            tabs.addTab(tabs.newTab().setText("음식"));
+                            tabs.addTab(tabs.newTab().setText("관광지"));
+                        }
+                    });
+
+                    tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+                        @Override
+                        public void onTabSelected(TabLayout.Tab tab) {
+
+                            int position = tab.getPosition();
+                            Fragment selected = null;
+                            if(position == 0)
+                                selected = fragment_description;
+                            else if(position == 1)
+                                selected = fragment_food;
+                            else if(position == 2)
+                                selected = fragment_tourist;
+
+                            getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, selected).commit();
+                        }
+
+
+                        @Override
+                        public void onTabUnselected(TabLayout.Tab tab) {
+
+                        }
+
+                        @Override
+                        public void onTabReselected(TabLayout.Tab tab) {
+
+                        }
+                    });
                     onFragmentChange(0); //successFragment로 변경
                 }
 
