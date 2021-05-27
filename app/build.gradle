@@ -62,4 +62,8 @@ dependencies {
     implementation 'com.google.android.gms:play-services-maps:16.0.0'
     //html 크롤링
     implementation 'org.jsoup:jsoup:1.12.1'
+    //kkma jar 로딩
+    implementation files('libs/kkma-2.1.jar')
+    implementation 'com.squareup.okhttp3:okhttp:3.4.2'
+
 }

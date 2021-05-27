@@ -110,12 +110,14 @@
                     />
 
                 <TextView
+                    android:id="@+id/freq1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="4"
                     android:gravity="center"
                     />
                 <TextView
+                    android:id="@+id/freq2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="4"
@@ -123,6 +125,7 @@
                     />
 
                 <TextView
+                    android:id="@+id/freq3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="2"
@@ -130,6 +133,7 @@
                     />
 
                 <TextView
+                    android:id="@+id/freq4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="2"
@@ -137,6 +141,7 @@
                     />
 
                 <TextView
+                    android:id="@+id/freq5"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="2"
@@ -157,17 +162,19 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="키워드"
+                    android:text="추천 키워드"
                     android:gravity="center"
                     />
 
                 <TextView
+                    android:id="@+id/keyword1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="낙산"
                     android:gravity="center"
                     />
                 <TextView
+                    android:id="@+id/keyword2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="공원"
@@ -175,6 +182,7 @@
                     />
 
                 <TextView
+                    android:id="@+id/keyword3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="노을"
@@ -182,6 +190,7 @@
                     />
 
                 <TextView
+                    android:id="@+id/keyword4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="네이버"
@@ -189,6 +198,7 @@
                     />
 
                 <TextView
+                    android:id="@+id/keyword5"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="블로그"

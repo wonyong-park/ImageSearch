@@ -12,6 +12,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.Manifest;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -63,6 +64,7 @@ import com.sungkyul.imagesearch.es.Tourist;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -308,6 +310,7 @@ public class MainActivity extends AppCompatActivity {
             uploadImage(data.getData());
             Log.i("data.getData()to", data.getData().toString());
             Log.i("data.toString()", data.toString());
+
             // content://com.google.android.apps.docs.storage/document/acc%3D1%3Bdoc%3Dencoded%3Dgss2Sqjm2NIucVg93PJvTJSr%2FlGe8iq85aF1v1Nb9W3CQZXtckqc
         } else if (requestCode == CAMERA_IMAGE_REQUEST && resultCode == RESULT_OK) {
             Uri photoUri = FileProvider.getUriForFile(this, getApplicationContext().getPackageName() + ".provider", getCameraFile());
