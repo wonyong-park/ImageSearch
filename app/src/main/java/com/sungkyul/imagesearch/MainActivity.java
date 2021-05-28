@@ -251,7 +251,9 @@ public class MainActivity extends AppCompatActivity {
                 }else{
                     // 2. Elasticsearch에 결과가 없는경우 --> des,food,tourist.isEmpty()
                     Log.i(TAG, "키워드 검색 -> 결과가 없다.");
-                    tabs.removeAllTabs();
+                    if(tabs != null){
+                        tabs.removeAllTabs();
+                    }
                     onFragmentChange(2); //noResultFragment로 변경
                 }
 
