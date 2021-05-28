@@ -631,8 +631,14 @@ public class MainActivity extends AppCompatActivity {
         } else {
             //vision ai => x --> 크롤로 가야함
             message.append("키워드 추출 실패");
-            tabs.removeAllTabs();
 
+            tabs = findViewById(R.id.tabs);
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    tabs.removeAllTabs();
+                }
+            });
             //Crawl 위한 번들
             Bundle bundle = new Bundle();
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
