@@ -19,6 +19,9 @@ import androidx.fragment.app.Fragment;
 import com.sungkyul.imagesearch.FileUploadUtils;
 import com.sungkyul.imagesearch.R;
 
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -41,12 +44,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import io.grpc.netty.shaded.io.netty.handler.codec.http2.Http2MultiplexHandler;
+import okhttp3.MultipartBody;
+
 //CrawlFragment는 Vision AI가 성공하지 못했을때 호출되는 프래그먼트
 public class CrawlFragment extends Fragment {
 
     //https://www.google.co.kr/searchbyimage?image_url=http://220.67.115.212:5601/dongjabang/image/user/naksan_image.jpg&encoded_image=&image_content=&filename=&hl=ko
 
     String TestURL = "http://220.67.115.212:5601/dongjabang/image/user/naksan_image.jpg";
+
     String GOOGLE_IMAGE_SEARCH_URL = "https://www.google.co.kr/searchbyimage?image_url=" + TestURL + "&encoded_image=&image_content=&filename=&hl=ko";
     private ImageView crawlImage;
 
@@ -91,40 +98,30 @@ public class CrawlFragment extends Fragment {
         byte[] byteArray = getArguments().getByteArray("image");
         Bitmap bmp = BitmapFactory.decodeByteArray(byteArray,0,byteArray.length);
 
-        crawlImage.setImageBitmap(bmp);
+        Log.i("G",GOOGLE_IMAGE_SEARCH_URL);
 
-        /*
-        File storage = getActivity().getCacheDir();
-        String fileName = "tt.jpg";
-        File imgFile = new File(storage, fileName);
+        crawlImage.setImageBitmap(bmp);
+        String date = new SimpleDateFormat("yyyyMMddhhmmss").format(new Date());
+        String fileName = "temp"+ date + ".jpg";
+        //http://220.67.115.212:5601/dongjabang/image/user/temp2021_05_29_03_06_56.jpg
+        GOOGLE_IMAGE_SEARCH_URL = "https://www.google.co.kr/searchbyimage?image_url=http://220.67.115.212:5601/dongjabang/image/user/" + fileName + "&encoded_image=&image_content=&filename=&hl=ko";
+
         try{
+
+            File storage = getActivity().getCacheDir();
+            File imgFile = new File(storage, fileName);
             imgFile.createNewFile();
             FileOutputStream out = new FileOutputStream(imgFile);
             bmp.compress(Bitmap.CompressFormat.JPEG, 100, out);
             out.close();
+
             FileUploadUtils.goSend(imgFile);
         }catch (FileNotFoundException e){
 
         }catch (IOException e){
 
         }
-        Log.d("imgpath", getActivity().getCacheDir()+"/"+fileName);
-        */
-
-//        try {
-//
-//
-//            // 선택한 이미지 임시 저장
-//            String date = new SimpleDateFormat("yyyy_MM_dd_hh_mm_ss").format(new Date());
-//            tempSelectFile = new File(Environment.getExternalStorageDirectory()+"/Pictures/Test/", "temp_" + date + ".jpeg");
-//            OutputStream out = new FileOutputStream(tempSelectFile);
-//            bmp.compress(Bitmap.CompressFormat.JPEG, 100, out);
-//            FileUploadUtils.goSend(tempSelectFile);
-//        }catch(IOException e){
-//            e.printStackTrace();
-//        }
-
-
+//        Log.d("imgpath", getActivity().getCacheDir()+"/"+fileName);
 
         getData();
         return v;
@@ -160,6 +157,7 @@ public class CrawlFragment extends Fragment {
         @Override
         protected Void doInBackground(Void... voids) {
             try {
+                Log.i("SEARCH_URL", GOOGLE_IMAGE_SEARCH_URL);
                 Document doc = Jsoup.connect(GOOGLE_IMAGE_SEARCH_URL).get();
                 Elements contents = doc.select("#Ycyxxc");
 //                doc.getElementById("#Ycyxxc").appendText("http://220.67.115.212:5601/dongjabang/image/user/naksan_image.jpg");

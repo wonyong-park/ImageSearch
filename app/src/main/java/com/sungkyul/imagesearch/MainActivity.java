@@ -623,7 +623,10 @@ public class MainActivity extends AppCompatActivity {
                 //vision ai => o, Elasticsearch => x
                 else{
                     onFragmentChange(2);
-                    tabs.removeAllTabs();
+                    if(tabs != null){
+                        tabs.removeAllTabs();
+                    }
+
                     Log.i("onFragmentChange => 2 ", "2번으로 변경 => noresult");
                     message.append(keyword);
                 }
