@@ -251,6 +251,7 @@ public class MainActivity extends AppCompatActivity {
                 }else{
                     // 2. Elasticsearch에 결과가 없는경우 --> des,food,tourist.isEmpty()
                     Log.i(TAG, "키워드 검색 -> 결과가 없다.");
+                    tabs.removeAllTabs();
                     onFragmentChange(2); //noResultFragment로 변경
                 }
 
@@ -620,6 +621,7 @@ public class MainActivity extends AppCompatActivity {
                 //vision ai => o, Elasticsearch => x
                 else{
                     onFragmentChange(2);
+                    tabs.removeAllTabs();
                     Log.i("onFragmentChange => 2 ", "2번으로 변경 => noresult");
                     message.append(keyword);
                 }
@@ -629,6 +631,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             //vision ai => x --> 크롤로 가야함
             message.append("키워드 추출 실패");
+            tabs.removeAllTabs();
 
             //Crawl 위한 번들
             Bundle bundle = new Bundle();
