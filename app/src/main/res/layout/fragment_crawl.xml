@@ -35,19 +35,23 @@
             android:textSize="14dp"
             android:text="특징이 부각된 사진이나\n추천키워드로 검색해주시길 바랍니다."
             android:gravity="center"
+            android:textColor="#000000"
             android:textStyle="bold"/>
 
         <LinearLayout
+            android:id="@+id/linear_result"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginTop="5dp"
+            android:visibility="invisible"
             >
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
+                android:textColor="#000000"
                 android:layout_weight="1"
                 >
 
@@ -55,6 +59,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="등수"
+                    android:textColor="#000000"
                     android:gravity="center"
                     />
 
@@ -62,6 +67,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="1"
+                    android:textColor="#000000"
                     android:gravity="center"
                     />
 
@@ -69,6 +75,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="2"
+                    android:textColor="#000000"
                     android:gravity="center"
                     />
 
@@ -76,6 +83,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="3"
+                    android:textColor="#000000"
                     android:gravity="center"
                     />
 
@@ -83,12 +91,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="4"
+                    android:textColor="#000000"
                     android:gravity="center"
                     />
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="5"
+                    android:textColor="#000000"
                     android:gravity="center"
                     />
 
@@ -106,6 +116,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="빈도수"
+                    android:textColor="#000000"
                     android:gravity="center"
                     />
 
@@ -114,6 +125,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="4"
+                    android:textColor="#000000"
                     android:gravity="center"
                     />
                 <TextView
@@ -121,6 +133,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="4"
+                    android:textColor="#000000"
                     android:gravity="center"
                     />
 
@@ -129,6 +142,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="2"
+                    android:textColor="#000000"
                     android:gravity="center"
                     />
 
@@ -137,6 +151,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="2"
+                    android:textColor="#000000"
                     android:gravity="center"
                     />
 
@@ -145,6 +160,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="2"
+                    android:textColor="#000000"
                     android:gravity="center"
                     />
 
@@ -163,6 +179,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="추천 키워드"
+                    android:textColor="#000000"
                     android:gravity="center"
                     />
 
@@ -171,6 +188,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="낙산"
+                    android:textColor="#000000"
                     android:gravity="center"
                     />
                 <TextView
@@ -178,6 +196,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="공원"
+                    android:textColor="#000000"
                     android:gravity="center"
                     />
 
@@ -186,6 +205,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="노을"
+                    android:textColor="#000000"
                     android:gravity="center"
                     />
 
@@ -194,6 +214,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="네이버"
+                    android:textColor="#000000"
                     android:gravity="center"
                     />
 
@@ -202,6 +223,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="블로그"
+                    android:textColor="#000000"
                     android:gravity="center"
                     />
 

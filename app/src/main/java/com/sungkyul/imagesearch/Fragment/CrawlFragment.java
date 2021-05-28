@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -58,6 +59,7 @@ public class CrawlFragment extends Fragment {
 
     private TextView freq1,freq2,freq3,freq4,freq5;
     private TextView keyword1,keyword2,keyword3,keyword4,keyword5;
+    private LinearLayout linear_result;
 
 
     @Override
@@ -66,6 +68,7 @@ public class CrawlFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_crawl,container,false);
 
+        linear_result = v.findViewById(R.id.linear_result);
         crawlImage = v.findViewById(R.id.crawl_image);
         keyword1 = v.findViewById(R.id.keyword1);
         keyword2 = v.findViewById(R.id.keyword2);
@@ -139,6 +142,7 @@ public class CrawlFragment extends Fragment {
         @SuppressLint("SetTextI18n")
         @Override
         protected void onPostExecute(Void aVoid) {
+
             freq1.setText(frequencylist[0] +"");
             freq2.setText(frequencylist[1] +"");
             freq3.setText(frequencylist[2] +"");
@@ -149,6 +153,7 @@ public class CrawlFragment extends Fragment {
             keyword3.setText(keywordlist[2]);
             keyword4.setText(keywordlist[3]);
             keyword5.setText(keywordlist[4]);
+            linear_result.setVisibility(View.VISIBLE);
 
         }
 
