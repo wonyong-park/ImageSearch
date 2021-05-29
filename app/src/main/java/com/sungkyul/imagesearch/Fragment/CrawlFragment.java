@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,12 +54,9 @@ public class CrawlFragment extends Fragment {
     //https://www.google.co.kr/searchbyimage?image_url=http://220.67.115.212:5601/dongjabang/image/user/naksan_image.jpg&encoded_image=&image_content=&filename=&hl=ko
 
     String TestURL = "http://220.67.115.212:5601/dongjabang/image/user/naksan_image.jpg";
-
     String GOOGLE_IMAGE_SEARCH_URL = "https://www.google.co.kr/searchbyimage?image_url=" + TestURL + "&encoded_image=&image_content=&filename=&hl=ko";
     private ImageView crawlImage;
 
-    private TextView test_crawl_text;
-    File tempSelectFile;
     String str = "";
 
     String[] keywordlist;
@@ -93,19 +91,15 @@ public class CrawlFragment extends Fragment {
         frequencylist = new int[5];
 
         //test_crawl_text
-        test_crawl_text = v.findViewById(R.id.test_crawl_text);
 
         byte[] byteArray = getArguments().getByteArray("image");
         Bitmap bmp = BitmapFactory.decodeByteArray(byteArray,0,byteArray.length);
-
-        Log.i("G",GOOGLE_IMAGE_SEARCH_URL);
-
         crawlImage.setImageBitmap(bmp);
+
+        str = "";
         String date = new SimpleDateFormat("yyyyMMddhhmmss").format(new Date());
         String fileName = "temp"+ date + ".jpg";
-        //http://220.67.115.212:5601/dongjabang/image/user/temp2021_05_29_03_06_56.jpg
         GOOGLE_IMAGE_SEARCH_URL = "https://www.google.co.kr/searchbyimage?image_url=http://220.67.115.212:5601/dongjabang/image/user/" + fileName + "&encoded_image=&image_content=&filename=&hl=ko";
-
         try{
 
             File storage = getActivity().getCacheDir();
@@ -116,6 +110,14 @@ public class CrawlFragment extends Fragment {
             out.close();
 
             FileUploadUtils.goSend(imgFile);
+
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    getData();
+                }
+            },5000);
+
         }catch (FileNotFoundException e){
 
         }catch (IOException e){
@@ -123,7 +125,7 @@ public class CrawlFragment extends Fragment {
         }
 //        Log.d("imgpath", getActivity().getCacheDir()+"/"+fileName);
 
-        getData();
+
         return v;
     }
 
