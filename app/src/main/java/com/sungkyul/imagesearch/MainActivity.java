@@ -624,7 +624,12 @@ public class MainActivity extends AppCompatActivity {
                 else{
                     onFragmentChange(2);
                     if(tabs != null){
-                        tabs.removeAllTabs();
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                tabs.removeAllTabs();
+                            }
+                        });
                     }
 
                     Log.i("onFragmentChange => 2 ", "2번으로 변경 => noresult");
