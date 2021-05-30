@@ -1,58 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:orientation="vertical"
+    android:weightSum="2560"> <!-- 총 레이아웃 세로 길이 2560 -->
 
-    <Button
-        android:id="@+id/login_button"
+    <LinearLayout
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1060"
+        android:weightSum="1440">  <!-- 총 레이아웃 가로 길이 1440 -->
+
+        <ImageView
+            android:id="@+id/LoginImg"
+            android:src="@drawable/login_main"
+            android:background="@drawable/edit_round"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginTop="70dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="160"
+        android:weightSum="1440">
+
+
+        <EditText
+            android:id="@+id/login_id"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_weight="1000"
+            android:background="@drawable/edit_round"
+            android:textCursorDrawable="@drawable/cursor"
+            android:hint="아이디"
+            android:paddingLeft="15dp"
+            android:maxLength="10"
+            android:textSize="15dp" />
+
+        <requestFocus />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="160"
+        android:weightSum="1440">
+
+
+        <EditText
+            android:id="@+id/login_password"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_weight="1000"
+            android:background="@drawable/edit_round"
+            android:textCursorDrawable="@drawable/cursor"
+            android:hint="비밀번호"
+            android:paddingLeft="15dp"
+            android:maxLength="16"
+            android:password="true"
+            android:textSize="15dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="110"
+        android:gravity="center">
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:gravity="center"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="로그인"
-        app:layout_constraintBaseline_toBaselineOf="@+id/join_button"
-        app:layout_constraintStart_toStartOf="@+id/login_password" />
+        android:layout_gravity="center"
+        android:layout_height="0dp"
+        android:layout_weight="160"
+        android:weightSum="1440">
 
-    <EditText
-        android:id="@+id/login_email"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="41dp"
-        android:ems="10"
-        android:hint="이메일"
-        android:inputType="textEmailAddress"
-        app:layout_constraintBottom_toTopOf="@+id/login_password"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        <Button
+            android:id="@+id/login_button"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_weight="1000"
+            android:background="#FFFFFF"
+            android:textColor="#000000"
+            android:text="로그인" />
 
-    <EditText
-        android:id="@+id/login_password"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="41dp"
-        android:ems="10"
-        android:hint="비밀번호"
-        android:inputType="textPassword"
-        app:layout_constraintBottom_toTopOf="@+id/login_button"
-        app:layout_constraintStart_toStartOf="@+id/login_email" />
-
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="55dp"
-        android:layout_height="55dp"
-        android:layout_marginBottom="41dp"
-        app:layout_constraintBottom_toTopOf="@+id/login_email"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        <Button
+            android:id="@+id/join_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="회원가입"
+            android:background="#FFFFFF"
+            android:textColor="#000000"
+            android:textAlignment="center"
+            android:textSize="15dp"/>
+    </LinearLayout>
 
 
-    <Button
-        android:id="@+id/join_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="190dp"
-        android:text="회원가입"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/login_password" />
+    <LinearLayout
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="750"
+        android:paddingTop="130dp">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="Ver 1.0"/>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,50 +1,41 @@
 package com.sungkyul.imagesearch.Fragment;
 
-import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.Build;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
-import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapView;
-import com.google.android.gms.maps.MapsInitializer;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
-import com.sungkyul.imagesearch.OnSwipeTouchListener;
+import com.sungkyul.imagesearch.ListViewAdapter;
 import com.sungkyul.imagesearch.R;
 import com.sungkyul.imagesearch.es.Description;
 import com.sungkyul.imagesearch.es.Food;
 import com.sungkyul.imagesearch.es.Tourist;
 
-import org.w3c.dom.Text;
-
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -64,11 +55,20 @@ public class DescriptionFragment extends Fragment implements View.OnClickListene
     ImageView imageView;
     Bitmap bitmap;
 
+    public static ListViewAdapter listviewadapter;
+    public static ListView listview;
+    Activity activity;
+
+
     Button open;
+
+    EditText inputList;
 
     TextView back_title;
     TextView back_des;
     Button back_tel;
+    Button button1;
+    Button button2;
     Button back_open;
     Button back_address;
     String num;
@@ -92,6 +92,7 @@ public class DescriptionFragment extends Fragment implements View.OnClickListene
         fm = getFragmentManager();
         transaction = fm.beginTransaction();
 
+
         linear_des = (LinearLayout)v.findViewById(R.id.Linear_des);
         imageView = (ImageView)v.findViewById(R.id.back_image);
         back_title = (TextView)v.findViewById(R.id.back_title);
@@ -99,6 +100,9 @@ public class DescriptionFragment extends Fragment implements View.OnClickListene
         back_tel = (Button)v.findViewById(R.id.back_tel);
         back_open = (Button)v.findViewById(R.id.back_open);
         back_address = (Button)v.findViewById(R.id.back_address);
+        inputList = (EditText) v.findViewById(R.id.listinput);
+
+        listviewadapter = new ListViewAdapter(getActivity());
 
         Bundle bundle = getArguments();
         descriptions = bundle.getParcelableArrayList("des_list");
@@ -113,6 +117,42 @@ public class DescriptionFragment extends Fragment implements View.OnClickListene
         back_tel.setText(descriptions.get(0).getBack_tel());
         back_address.setText(descriptions.get(0).getBack_address());
         num = descriptions.get(0).getBack_tel();
+
+
+        // 아이템 추가한다.
+        button1 = (Button)v.findViewById(R.id.button1);
+        button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // ListView에 입력할 문자열
+                listviewadapter.setName(inputList.getText().toString());
+                inputList.setText("");
+            }
+        });
+
+        button2 = (Button)v.findViewById(R.id.button2);
+        button2.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // 뷰 호출
+                v = getActivity().getLayoutInflater().inflate(R.layout.listview, null);
+                // 해당 뷰에 리스트뷰 호출
+                listview = (ListView)v.findViewById(R.id.listview);
+                // 리스트뷰에 어뎁터 설정
+                listview.setAdapter(listviewadapter);
+                // 다이얼로그 생성
+                AlertDialog.Builder listViewDialog = new AlertDialog.Builder(getActivity());
+                // 리스트뷰 설정된 레이아웃
+                listViewDialog.setView(v);
+                // 확인버튼
+                listViewDialog.setPositiveButton("확인", null);
+                // 타이틀
+                listViewDialog.setTitle("리뷰");
+                // 다이얼로그 보기
+                listViewDialog.show();
+            }
+        });
 
        open = (Button) v.findViewById(R.id.back_open) ;
        open.setOnClickListener((View.OnClickListener) this);
@@ -172,9 +212,6 @@ public class DescriptionFragment extends Fragment implements View.OnClickListene
         }catch (InterruptedException e){
             e.printStackTrace();
         }
-
-
-
         return v;
     }
 
@@ -195,4 +232,39 @@ public class DescriptionFragment extends Fragment implements View.OnClickListene
     }
 
 
+}
+class CustomTask extends AsyncTask<String, Void, String> {
+    String sendMsg, receiveMsg;
+    @Override
+    protected String doInBackground(String... strings) {
+        try {
+            String str;
+            URL url = new URL("http://220.67.115.212:5601/dongjabang/readComments.jsp");
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            conn.setRequestMethod("POST");
+            OutputStreamWriter osw = new OutputStreamWriter(conn.getOutputStream());
+            sendMsg = "id="+strings[0];
+            osw.write(sendMsg);
+            osw.flush();
+            if(conn.getResponseCode() == conn.HTTP_OK) {
+                InputStreamReader tmp = new InputStreamReader(conn.getInputStream(), "EUC-KR");
+                BufferedReader reader = new BufferedReader(tmp);
+                StringBuffer buffer = new StringBuffer();
+                while ((str = reader.readLine()) != null) {
+                    buffer.append(str);
+                }
+                receiveMsg = buffer.toString();
+
+            } else {
+                Log.i("통신 결과", conn.getResponseCode()+"에러");
+            }
+
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return receiveMsg;
+    }
 }
