@@ -653,7 +653,7 @@ public class MainActivity extends AppCompatActivity {
             //Crawl 위한 번들
             Bundle bundle = new Bundle();
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            crawlBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            crawlBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
             byte[] byteArray = stream.toByteArray();
             bundle.putByteArray("image",byteArray);
             fragment_crawl.setArguments(bundle);

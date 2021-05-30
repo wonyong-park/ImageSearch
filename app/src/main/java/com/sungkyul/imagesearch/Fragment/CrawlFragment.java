@@ -102,10 +102,11 @@ public class CrawlFragment extends Fragment {
 
         //test_crawl_text
 
+
         byte[] byteArray = getArguments().getByteArray("image");
         Bitmap bmp = BitmapFactory.decodeByteArray(byteArray,0,byteArray.length);
         crawlImage.setImageBitmap(bmp);
-
+        getArguments().remove("image");
         str = "";
         String date = new SimpleDateFormat("yyyyMMddhhmmss").format(new Date());
         String fileName = "temp"+ date + ".jpg";
