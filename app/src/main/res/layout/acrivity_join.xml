@@ -48,7 +48,6 @@
                 android:layout_height="35dp"
                 android:layout_weight="1300"
                 android:textSize="15dp"
-                android:inputType="number"
                 android:background="@drawable/signup_edit"
                 android:textCursorDrawable="@drawable/cursor"
                 android:singleLine="true"
@@ -82,7 +81,6 @@
                 android:layout_height="35dp"
                 android:layout_weight="1300"
                 android:textSize="15dp"
-                android:inputType="textPassword"
                 android:background="@drawable/signup_edit"
                 android:textCursorDrawable="@drawable/cursor"
                 android:singleLine="true"/>
@@ -106,7 +104,6 @@
                 android:layout_weight="1300"
                 android:textSize="15dp"
                 android:inputType="textPassword"
-                android:password="true"
                 android:background="@drawable/signup_edit"
                 android:textCursorDrawable="@drawable/cursor"
                 android:singleLine="true"/>

@@ -100,7 +100,7 @@ public class DescriptionFragment extends Fragment implements View.OnClickListene
         back_tel = (Button)v.findViewById(R.id.back_tel);
         back_open = (Button)v.findViewById(R.id.back_open);
         back_address = (Button)v.findViewById(R.id.back_address);
-        inputList = (EditText) v.findViewById(R.id.listinput);
+//        inputList = (EditText) v.findViewById(R.id.listinput);
 
         listviewadapter = new ListViewAdapter(getActivity());
 
@@ -119,40 +119,40 @@ public class DescriptionFragment extends Fragment implements View.OnClickListene
         num = descriptions.get(0).getBack_tel();
 
 
-        // 아이템 추가한다.
-        button1 = (Button)v.findViewById(R.id.button1);
-        button1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // ListView에 입력할 문자열
-                listviewadapter.setName(inputList.getText().toString());
-                inputList.setText("");
-            }
-        });
-
-        button2 = (Button)v.findViewById(R.id.button2);
-        button2.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                // 뷰 호출
-                v = getActivity().getLayoutInflater().inflate(R.layout.listview, null);
-                // 해당 뷰에 리스트뷰 호출
-                listview = (ListView)v.findViewById(R.id.listview);
-                // 리스트뷰에 어뎁터 설정
-                listview.setAdapter(listviewadapter);
-                // 다이얼로그 생성
-                AlertDialog.Builder listViewDialog = new AlertDialog.Builder(getActivity());
-                // 리스트뷰 설정된 레이아웃
-                listViewDialog.setView(v);
-                // 확인버튼
-                listViewDialog.setPositiveButton("확인", null);
-                // 타이틀
-                listViewDialog.setTitle("리뷰");
-                // 다이얼로그 보기
-                listViewDialog.show();
-            }
-        });
+//        // 아이템 추가한다.
+//        button1 = (Button)v.findViewById(R.id.button1);
+//        button1.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                // ListView에 입력할 문자열
+//                listviewadapter.setName(inputList.getText().toString());
+//                inputList.setText("");
+//            }
+//        });
+//
+//        button2 = (Button)v.findViewById(R.id.button2);
+//        button2.setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View v) {
+//                // 뷰 호출
+//                v = getActivity().getLayoutInflater().inflate(R.layout.listview, null);
+//                // 해당 뷰에 리스트뷰 호출
+//                listview = (ListView)v.findViewById(R.id.listview);
+//                // 리스트뷰에 어뎁터 설정
+//                listview.setAdapter(listviewadapter);
+//                // 다이얼로그 생성
+//                AlertDialog.Builder listViewDialog = new AlertDialog.Builder(getActivity());
+//                // 리스트뷰 설정된 레이아웃
+//                listViewDialog.setView(v);
+//                // 확인버튼
+//                listViewDialog.setPositiveButton("확인", null);
+//                // 타이틀
+//                listViewDialog.setTitle("리뷰");
+//                // 다이얼로그 보기
+//                listViewDialog.show();
+//            }
+//        });
 
        open = (Button) v.findViewById(R.id.back_open) ;
        open.setOnClickListener((View.OnClickListener) this);
