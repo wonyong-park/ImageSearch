@@ -62,10 +62,11 @@ public class CrawlFragment extends Fragment {
     String[] keywordlist;
     int[] frequencylist;
 
+    private TextView rank1,rank2,rank3,rank4,rank5;
     private TextView freq1,freq2,freq3,freq4,freq5;
     private TextView keyword1,keyword2,keyword3,keyword4,keyword5;
     private LinearLayout linear_result;
-
+    private TextView txtNokeyword;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -75,6 +76,11 @@ public class CrawlFragment extends Fragment {
 
         linear_result = v.findViewById(R.id.linear_result);
         crawlImage = v.findViewById(R.id.crawl_image);
+        rank1 = v.findViewById(R.id.rank_1);
+        rank2 = v.findViewById(R.id.rank_2);
+        rank3 = v.findViewById(R.id.rank_3);
+        rank4 = v.findViewById(R.id.rank_4);
+        rank5 = v.findViewById(R.id.rank_5);
         keyword1 = v.findViewById(R.id.keyword1);
         keyword2 = v.findViewById(R.id.keyword2);
         keyword3 = v.findViewById(R.id.keyword3);
@@ -85,7 +91,11 @@ public class CrawlFragment extends Fragment {
         freq3 = v.findViewById(R.id.freq3);
         freq4 = v.findViewById(R.id.freq4);
         freq5 = v.findViewById(R.id.freq5);
+        txtNokeyword = v.findViewById(R.id.txtNokeyword);
 
+        //초기 INVISIBLE
+        linear_result.setVisibility(View.INVISIBLE);
+        txtNokeyword.setVisibility(View.INVISIBLE);
 
         keywordlist = new String[5];
         frequencylist = new int[5];
@@ -142,17 +152,53 @@ public class CrawlFragment extends Fragment {
         @Override
         protected void onPostExecute(Void aVoid) {
 
-            freq1.setText(frequencylist[0] +"");
-            freq2.setText(frequencylist[1] +"");
-            freq3.setText(frequencylist[2] +"");
-            freq4.setText(frequencylist[3] +"");
-            freq5.setText(frequencylist[4] +"");
-            keyword1.setText(keywordlist[0]);
-            keyword2.setText(keywordlist[1]);
-            keyword3.setText(keywordlist[2]);
-            keyword4.setText(keywordlist[3]);
-            keyword5.setText(keywordlist[4]);
-            linear_result.setVisibility(View.VISIBLE);
+            if(frequencylist[0] != 0 && !keywordlist[0].equals("")){
+                if(frequencylist[0] != 0){
+                    freq1.setText(frequencylist[0] +"");
+                    keyword1.setText(keywordlist[0]);
+                }else{
+                    rank1.setVisibility(View.INVISIBLE);
+                    freq1.setVisibility(View.INVISIBLE);
+                }
+
+                if(frequencylist[1] != 0){
+                    freq2.setText(frequencylist[1] +"");
+                    keyword2.setText(keywordlist[1]);
+                }else{
+                    rank2.setVisibility(View.INVISIBLE);
+                    freq2.setVisibility(View.INVISIBLE);
+                }
+
+                if(frequencylist[2] != 0) {
+                    freq3.setText(frequencylist[2] + "");
+                    keyword3.setText(keywordlist[2]);
+                }else{
+                    rank3.setVisibility(View.INVISIBLE);
+                    freq3.setVisibility(View.INVISIBLE);
+                }
+
+                if(frequencylist[3] != 0) {
+                    freq4.setText(frequencylist[3] + "");
+                    keyword4.setText(keywordlist[3]);
+                }else{
+                    rank4.setVisibility(View.INVISIBLE);
+                    freq4.setVisibility(View.INVISIBLE);
+                }
+
+                if(frequencylist[4] != 0){
+                    freq5.setText(frequencylist[4] +"");
+                    keyword5.setText(keywordlist[4]);
+                }else{
+                    rank5.setVisibility(View.INVISIBLE);
+                    freq5.setVisibility(View.INVISIBLE);
+                }
+
+                linear_result.setVisibility(View.VISIBLE);
+
+            }else{
+                txtNokeyword.setVisibility(View.VISIBLE);
+            }
+
 
         }
 

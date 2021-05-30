@@ -38,6 +38,20 @@
             android:textColor="#000000"
             android:textStyle="bold"/>
 
+        <TextView
+            android:id="@+id/txtNokeyword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="죄송합니다. 추천키워드를 찾을 수 없습니다."
+            android:textSize="14dp"
+            android:gravity="center"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            android:layout_margin="10dp"
+            android:visibility="invisible"
+            />
+
+
         <LinearLayout
             android:id="@+id/linear_result"
             android:layout_width="match_parent"
@@ -64,6 +78,7 @@
                     />
 
                 <TextView
+                    android:id="@+id/rank_1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="1"
@@ -72,6 +87,7 @@
                     />
 
                 <TextView
+                    android:id="@+id/rank_2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="2"
@@ -80,6 +96,7 @@
                     />
 
                 <TextView
+                    android:id="@+id/rank_3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="3"
@@ -88,6 +105,7 @@
                     />
 
                 <TextView
+                    android:id="@+id/rank_4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="4"
@@ -95,6 +113,7 @@
                     android:gravity="center"
                     />
                 <TextView
+                    android:id="@+id/rank_5"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="5"
@@ -187,7 +206,7 @@
                     android:id="@+id/keyword1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="낙산"
+                    android:text=""
                     android:textColor="#000000"
                     android:gravity="center"
                     />
@@ -195,7 +214,7 @@
                     android:id="@+id/keyword2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="공원"
+                    android:text=""
                     android:textColor="#000000"
                     android:gravity="center"
                     />
@@ -204,7 +223,7 @@
                     android:id="@+id/keyword3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="노을"
+                    android:text=""
                     android:textColor="#000000"
                     android:gravity="center"
                     />
@@ -213,7 +232,7 @@
                     android:id="@+id/keyword4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="네이버"
+                    android:text=""
                     android:textColor="#000000"
                     android:gravity="center"
                     />
@@ -222,7 +241,7 @@
                     android:id="@+id/keyword5"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="블로그"
+                    android:text=""
                     android:textColor="#000000"
                     android:gravity="center"
                     />
