@@ -528,6 +528,7 @@ public class MainActivity extends AppCompatActivity {
     private String convertResponseToString(BatchAnnotateImagesResponse response) {
         StringBuilder message = new StringBuilder("검색된 결과 : ");
 
+
 //        List<EntityAnnotation> labels = response.getResponses().get(0).getLabelAnnotations();
         List<EntityAnnotation> labels = response.getResponses().get(0).getLandmarkAnnotations();
 
@@ -538,8 +539,9 @@ public class MainActivity extends AppCompatActivity {
 
                 //번역하기
                 String keyword = "No";
+                String re = label.getDescription().replace(" ", "");
                 try {
-                    keyword = new NaverTranslateTask().doInBackground(label.getDescription());
+                    keyword = new NaverTranslateTask().doInBackground(re);
                 }catch (Exception e) {
                     e.printStackTrace();
                 }
