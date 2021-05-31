@@ -74,13 +74,6 @@ public class ESDescriptionManager implements IDescriptionManager{
             HttpPost searchRequest = createSearchRequest(searchString, field);
             HttpResponse response = httpClient.execute(searchRequest);
 
-//            //로그확인용
-//            HttpEntity entity = response.getEntity();
-//            String _response  = EntityUtils.toString(entity);
-//            JSONObject jObject = new JSONObject(_response);
-//            Log.i(TAG, "response => " + jObject);
-//            /////
-
             SearchResponse<Description> esResponse = parseSearchResponse(response);
             //parseSearchResponse 메소드 == 검색 응답 구문 분석
             Hits<Description> hits = esResponse.getHits();

@@ -61,6 +61,15 @@ public class LoginActivity extends Activity {
                 startActivity(intent);
             }
         });
+
+        Button jump = (Button)findViewById(R.id.jump_button);
+        jump.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     class CustomTask extends AsyncTask<String, Void, String> {
