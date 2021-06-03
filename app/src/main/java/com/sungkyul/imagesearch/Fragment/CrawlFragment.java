@@ -53,10 +53,11 @@ public class CrawlFragment extends Fragment {
 
     //https://www.google.co.kr/searchbyimage?image_url=http://220.67.115.212:5601/dongjabang/image/user/naksan_image.jpg&encoded_image=&image_content=&filename=&hl=ko
 
-    String TestURL = "http://220.67.115.212:5601/dongjabang/image/user/naksan_image.jpg";
-    String GOOGLE_IMAGE_SEARCH_URL = "https://www.google.co.kr/searchbyimage?image_url=" + TestURL + "&encoded_image=&image_content=&filename=&hl=ko";
+    String initURL = "";
+    String GOOGLE_IMAGE_SEARCH_URL = "https://www.google.co.kr/searchbyimage?image_url=" + initURL + "&encoded_image=&image_content=&filename=&hl=ko";
     private ImageView crawlImage;
 
+    //형태소 분석할 문자를 담아놓는 String
     String str = "";
 
     String[] keywordlist;
@@ -121,20 +122,19 @@ public class CrawlFragment extends Fragment {
             out.close();
 
             FileUploadUtils.goSend(imgFile);
-
+            //딜레이 10초(안정적으로 파일을 읽어오기 위해)
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     getData();
                 }
-            },5000);
+            },10000);
 
         }catch (FileNotFoundException e){
 
         }catch (IOException e){
 
         }
-//        Log.d("imgpath", getActivity().getCacheDir()+"/"+fileName);
 
 
         return v;
@@ -209,11 +209,8 @@ public class CrawlFragment extends Fragment {
                 Log.i("SEARCH_URL", GOOGLE_IMAGE_SEARCH_URL);
                 Document doc = Jsoup.connect(GOOGLE_IMAGE_SEARCH_URL).get();
                 Elements contents = doc.select("#Ycyxxc");
-//                doc.getElementById("#Ycyxxc").appendText("http://220.67.115.212:5601/dongjabang/image/user/naksan_image.jpg");
                 final Elements title_list = doc.select("div.yuRUbf a h3");
 
-//            str = contents.toString() +"kkkkkkkkkkkkkkkkkkkkkk";
-//            str = doc.toString();
                 for (Element element : title_list){
                     Log.i("title_list =>", element.text());
                     str = str + " " + element.text();
@@ -221,12 +218,11 @@ public class CrawlFragment extends Fragment {
 
                 HashMap<String,Integer> hs =new HashMap<>();
 
-
+                //형태소 분석 부분
                 KeywordExtractor ke = new KeywordExtractor();
                 KeywordList kl = ke.extractKeyword(str,true);
                 for (int i = 0; i<kl.size(); i++){
                     Keyword kwrd = kl.get(i);
-//                    Log.i("형태소 분석 : " , kwrd.getString() +"\t" + kwrd.getCnt());
                     hs.put(kwrd.getString(), kwrd.getCnt());
                 }
 
@@ -241,6 +237,7 @@ public class CrawlFragment extends Fragment {
 
                 int count = 0;
 
+                //배열에 할당 부분
                 for (Map.Entry<String, Integer> entry : list_entries){
                     System.out.println(entry.getKey() + " : " + entry.getValue());
                     keywordlist[count] = entry.getKey();
