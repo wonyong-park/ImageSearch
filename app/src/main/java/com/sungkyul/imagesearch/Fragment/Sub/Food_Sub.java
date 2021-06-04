@@ -7,6 +7,7 @@ import android.widget.LinearLayout;
 
 import com.sungkyul.imagesearch.R;
 
+//음식점 객체를 화면에 붙혀주는 클래스
 public class Food_Sub extends LinearLayout {
 
     public Food_Sub(Context context, AttributeSet attrs) {

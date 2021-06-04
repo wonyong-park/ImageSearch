@@ -3,6 +3,7 @@ package com.sungkyul.imagesearch.es;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+//음식점 정보 객체
 public class Food implements Parcelable {
     public String title;
     private String food_key;

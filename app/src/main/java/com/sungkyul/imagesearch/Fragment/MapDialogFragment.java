@@ -23,6 +23,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.sungkyul.imagesearch.R;
 
+//지도 클릭 이벤트시 보여주는 지도 다이얼로그 프래그먼트
 public class MapDialogFragment extends DialogFragment implements OnMapReadyCallback{
 
     GoogleMap mMap;
@@ -35,7 +36,6 @@ public class MapDialogFragment extends DialogFragment implements OnMapReadyCallb
     static Marker marker;
 
     public MapDialogFragment(float latitude, float longitude, String address) {
-        // Required empty public constructor
         this.latitude = latitude;
         this.longitude = longitude;
         this.address = address;
@@ -82,13 +82,7 @@ public class MapDialogFragment extends DialogFragment implements OnMapReadyCallb
         //마커가 기존에 있다면 지우기위한 부분
         if(marker != null) marker.remove();
         mMap = googleMap;
-//        mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
-//        mMap.setMapType(GoogleMap.MAP_TYPE_NONE);
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-//        mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
-//        mMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
-
-
         LatLng latLng = new LatLng(latitude,longitude);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,14));
         Log.i("OnMapReady", "latitude : " + latitude + "\tlongitude : " + longitude);

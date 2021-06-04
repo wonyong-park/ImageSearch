@@ -17,6 +17,8 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+
+//리뷰룰 쓰기위해 사용하는 로그인 액티비티
 public class LoginActivity extends Activity {
 
 
@@ -38,10 +40,10 @@ public class LoginActivity extends Activity {
                     String result;
                     CustomTask task = new CustomTask();
                     result = task.execute(edit_id.getText().toString(),edit_pass.getText().toString()).get();
-                    Log.i("리턴 값",result);
+                    Log.i("result : ",result);
 
                     if(result.equals("    "+edit_id.getText().toString())){
-                        Log.i("아니왜",edit_id.getText().toString());
+                        Log.i("ID value => ",edit_id.getText().toString());
                          Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                          startActivity(intent);
                     }

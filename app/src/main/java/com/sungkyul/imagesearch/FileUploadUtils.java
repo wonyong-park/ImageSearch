@@ -13,6 +13,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
+//Vision API 사진 분석이 실패한 사진을 서버로 올리기 위한 클래스
 public class FileUploadUtils {
 
     public static void goSend(File file){
@@ -22,7 +23,6 @@ public class FileUploadUtils {
                 .build();
 
         Request request = new Request.Builder()
-//                .url("http://220.67.115.212:5601/dongjabang/image/user/")
                 .url("http://220.67.115.212:5601/dongjabang/upload.jsp")
                 .post(requestBody)
                 .build();
@@ -37,7 +37,7 @@ public class FileUploadUtils {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                Log.d("TEST : ", response.body().string());
+                Log.d("Response : ", response.body().string());
             }
         });
     }

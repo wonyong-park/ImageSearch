@@ -24,6 +24,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+//엘라스틱서치와 설명 객체를 연결해주는 매니저
 public class ESDescriptionManager implements IDescriptionManager{
 
     private static final String SEARCH_Description_URL = "http://220.67.115.212:9200/background_description/_search/";

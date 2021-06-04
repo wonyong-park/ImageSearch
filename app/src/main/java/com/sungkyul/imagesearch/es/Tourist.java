@@ -3,6 +3,7 @@ package com.sungkyul.imagesearch.es;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+//관광지 정보 객체
 public class Tourist implements Parcelable {
     public String title;//
     private String tourist_key;//관광지 이름

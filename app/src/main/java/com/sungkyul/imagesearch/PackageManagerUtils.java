@@ -15,6 +15,7 @@ import java.security.NoSuchAlgorithmException;
  * Provides utility logic for getting the app's SHA1 signature. Used with restricted API keys.
  *
  */
+//Vision API key를 암호화하기 위한 클래스
 public class PackageManagerUtils {
 
     /**

@@ -41,6 +41,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 
+//키워드에 대한 설명 프래그먼트
 public class DescriptionFragment extends Fragment implements View.OnClickListener{
 
     private static final String TAG = "DescriptionFragment";

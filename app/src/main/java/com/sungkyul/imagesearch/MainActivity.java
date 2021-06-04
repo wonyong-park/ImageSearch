@@ -8,11 +8,9 @@ import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.viewpager.widget.ViewPager;
 
 import android.Manifest;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -64,12 +62,12 @@ import com.sungkyul.imagesearch.es.Tourist;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
+//사용자가 검색을 위한 검색창이 담긴 메인 액티비티
 public class MainActivity extends AppCompatActivity {
 
 
@@ -88,11 +86,8 @@ public class MainActivity extends AppCompatActivity {
     public static final int CAMERA_PERMISSIONS_REQUEST = 2;
     public static final int CAMERA_IMAGE_REQUEST = 3;
 
-//    private TextView mImageDetails;
-//    private ImageView mMainImage;
     private EditText edit_keyword;
     private LinearLayout recommendkeyword;
-    private ArrayList <String> tabNames = new ArrayList<>();
     TabLayout tabs;
 
     //fragment
@@ -111,9 +106,7 @@ public class MainActivity extends AppCompatActivity {
     private List<Description> descriptions;
     private ITouristManager touristManager;
     private List<Tourist> tourists;
-
     //crawl
-    private Uri crawluri;
     private Bitmap crawlBitmap;
 
 
@@ -136,7 +129,6 @@ public class MainActivity extends AppCompatActivity {
         fragment_noresult = new NoResultFragment();
 
         transaction = fragmentManager.beginTransaction();
-//        transaction.replace(R.id.frameLayout, fragment_suceess).commitAllowingStateLoss();
 
         //ES
         //***s는 데이터를 담아놓는 리스트, ***manager는 함수호출용
@@ -166,7 +158,6 @@ public class MainActivity extends AppCompatActivity {
                     .setPositiveButton("갤러리", (dialog, which) -> startGalleryChooser())
                     .setNegativeButton("사진 촬영", (dialog, which) -> startCamera());
             builder.create().show();
-//            recommendkeyword.setVisibility(View.INVISIBLE);
         });
 
         //검색 버튼 클릭시
@@ -260,8 +251,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-//        mImageDetails = findViewById(R.id.image_details);
-//        mMainImage = findViewById(R.id.main_image);
     }
 
     public void onFragmentChange(int index){
@@ -314,7 +303,6 @@ public class MainActivity extends AppCompatActivity {
             Log.i("data.getData()to", data.getData().toString());
             Log.i("data.toString()", data.toString());
 
-            // content://com.google.android.apps.docs.storage/document/acc%3D1%3Bdoc%3Dencoded%3Dgss2Sqjm2NIucVg93PJvTJSr%2FlGe8iq85aF1v1Nb9W3CQZXtckqc
         } else if (requestCode == CAMERA_IMAGE_REQUEST && resultCode == RESULT_OK) {
             Uri photoUri = FileProvider.getUriForFile(this, getApplicationContext().getPackageName() + ".provider", getCameraFile());
             uploadImage(photoUri);
@@ -344,8 +332,6 @@ public class MainActivity extends AppCompatActivity {
         if (uri != null) {
             try {
 
-
-
                 // scale the image to save on bandwidth
                 Bitmap bitmap =
                         scaleBitmapDown(
@@ -354,13 +340,8 @@ public class MainActivity extends AppCompatActivity {
                 Log.i("uri ==> ",  uri.getPath());
 
                 //crawl을 위한 임시저장 변수
-                crawluri = uri;
                 crawlBitmap = bitmap;
-//                String str = uri.getPath();
-//                edit_keyword.setText(uri.getPath());
-
                 callCloudVision(bitmap);
-//                mMainImage.setImageBitmap(bitmap);
 
                 if(uri.getPath().equals("/document/acc=1;doc=encoded=gss2Sqjm2NIucVg93PJvTJSr/lGe8iq85aF1v1Nb9W3CQZXtckqc")){
                     new Handler().postDelayed(new Runnable() {
@@ -433,8 +414,6 @@ public class MainActivity extends AppCompatActivity {
             // add the features we want
             annotateImageRequest.setFeatures(new ArrayList<Feature>() {{
                 Feature labelDetection = new Feature();
-//                labelDetection.setType("LABEL_DETECTION");
-
                 //랜드마크로 설정
                 labelDetection.setType("LANDMARK_DETECTION");
                 labelDetection.setMaxResults(MAX_LABEL_RESULTS);
@@ -482,17 +461,12 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(String result) {
             MainActivity activity = mActivityWeakReference.get();
             if (activity != null && !activity.isFinishing()) {
-//                TextView imageDetail = activity.findViewById(R.id.image_details);
-//                imageDetail.setText(result);
             }
         }
     }
 
     //vision ai call
     private void callCloudVision(final Bitmap bitmap) {
-        // Switch text to loading
-//        mImageDetails.setText("이미지 업로드 중입니다.\n잠시만 기다려주세요.");
-
         // Do the real work in an async task, because we need to use the network anyway
         try {
             AsyncTask<Object, Void, String> labelDetectionTask = new LableDetectionTask(this, prepareAnnotationRequest(bitmap));
@@ -527,9 +501,6 @@ public class MainActivity extends AppCompatActivity {
     //번역 부분
     private String convertResponseToString(BatchAnnotateImagesResponse response) {
         StringBuilder message = new StringBuilder("검색된 결과 : ");
-
-
-//        List<EntityAnnotation> labels = response.getResponses().get(0).getLabelAnnotations();
         List<EntityAnnotation> labels = response.getResponses().get(0).getLandmarkAnnotations();
 
         //labels != null는 비전 ai가 검색이 잘 되었을때
@@ -546,8 +517,6 @@ public class MainActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 Log.i("keyword ", "번역한 결과 keyword ==> " + keyword);
-
-
 
                 Thread thread = new SearchThread(keyword);
                 thread.start();
@@ -577,7 +546,6 @@ public class MainActivity extends AppCompatActivity {
                             fragment_description.setArguments(bundle);
                             fragment_food.setArguments(bundle);
                             fragment_tourist.setArguments(bundle);
-                            //getSupportFragmentManager().beginTransaction().add(R.id.frameLayout, fragment_description).commit();
                         }
                     });
 

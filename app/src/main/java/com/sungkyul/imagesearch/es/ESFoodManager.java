@@ -27,6 +27,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+//엘라스틱서치와 음식점 객체를 연결해주는 매니저
 public class ESFoodManager implements IFoodManager{
 
     private static final String SEARCH_FOOD_URL = "http://220.67.115.212:9200/background_food/_search/";
@@ -78,13 +79,6 @@ public class ESFoodManager implements IFoodManager{
         try{
             HttpPost searchRequest = createSearchRequest(searchString, field);
             HttpResponse response = httpClient.execute(searchRequest);
-
-//            //로그확인용
-//            HttpEntity entity = response.getEntity();
-//            String _response  = EntityUtils.toString(entity);
-//            JSONObject jObject = new JSONObject(_response);
-//            Log.i(TAG, "response => " + jObject);
-//            /////
 
             SearchResponse<Food> esResponse = parseSearchResponse(response);
             //parseSearchResponse 메소드 == 검색 응답 구문 분석

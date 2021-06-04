@@ -72,7 +72,6 @@ public class CrawlFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_crawl,container,false);
 
         linear_result = v.findViewById(R.id.linear_result);
@@ -101,9 +100,6 @@ public class CrawlFragment extends Fragment {
         keywordlist = new String[5];
         frequencylist = new int[5];
 
-        //test_crawl_text
-
-
         byte[] byteArray = getArguments().getByteArray("image");
         Bitmap bmp = BitmapFactory.decodeByteArray(byteArray,0,byteArray.length);
         crawlImage.setImageBitmap(bmp);
@@ -122,7 +118,7 @@ public class CrawlFragment extends Fragment {
             out.close();
 
             FileUploadUtils.goSend(imgFile);
-            //딜레이 10초(안정적으로 파일을 읽어오기 위해)
+            //딜레이 10초(업로드한 파일을 검색이 가능하도록하기 위한 시간)
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {

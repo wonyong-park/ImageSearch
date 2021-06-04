@@ -3,6 +3,7 @@ package com.sungkyul.imagesearch.es;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+//설명 정보 객체
 public class Description implements Parcelable {
     public String title;
     private String back_des;

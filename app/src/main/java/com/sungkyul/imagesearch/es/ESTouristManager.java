@@ -24,6 +24,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+//엘라스틱서치와 관광지 객체를 연결해주는 매니저
 public class ESTouristManager implements ITouristManager{
 
     private static final String SEARCH_Tourist_URL = "http://220.67.115.212:9200/background_tourist/_search/";
@@ -73,13 +74,6 @@ public class ESTouristManager implements ITouristManager{
         try{
             HttpPost searchRequest = createSearchRequest(searchString, field);
             HttpResponse response = httpClient.execute(searchRequest);
-
-//            //로그확인용
-//            HttpEntity entity = response.getEntity();
-//            String _response  = EntityUtils.toString(entity);
-//            JSONObject jObject = new JSONObject(_response);
-//            Log.i(TAG, "response => " + jObject);
-//            /////
 
             SearchResponse<Tourist> esResponse = parseSearchResponse(response);
             //parseSearchResponse 메소드 == 검색 응답 구문 분석

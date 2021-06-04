@@ -22,7 +22,6 @@ import android.widget.Toast;
 
 import com.sungkyul.imagesearch.Fragment.Sub.Food_Sub;
 import com.sungkyul.imagesearch.MainActivity;
-import com.sungkyul.imagesearch.OnSwipeTouchListener;
 import com.sungkyul.imagesearch.R;
 import com.sungkyul.imagesearch.es.Description;
 import com.sungkyul.imagesearch.es.Food;
@@ -37,6 +36,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 
+//키워드에 대한 음식점 프래그먼트
 public class FoodFragment extends Fragment {
 
     private static final String TAG = "FoodFragment";
@@ -224,11 +224,6 @@ public class FoodFragment extends Fragment {
             count++;
             con.addView(n_layout);
         }
-
-
-        linear_scroll.setOnTouchListener(new OnSwipeTouchListener(getActivity().getApplicationContext()){
-
-        });
 
         return v;
     }

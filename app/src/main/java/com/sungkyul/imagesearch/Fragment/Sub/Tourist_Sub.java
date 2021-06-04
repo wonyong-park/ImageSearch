@@ -7,6 +7,7 @@ import android.widget.LinearLayout;
 
 import com.sungkyul.imagesearch.R;
 
+//관광지 객체를 화면에 붙혀주는 클래스
 public class Tourist_Sub extends LinearLayout {
 
     public Tourist_Sub(Context context, AttributeSet attrs) {

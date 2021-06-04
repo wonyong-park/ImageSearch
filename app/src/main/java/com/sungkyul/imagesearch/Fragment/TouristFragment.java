@@ -20,7 +20,6 @@ import android.widget.Toast;
 
 import com.sungkyul.imagesearch.Fragment.Sub.Food_Sub;
 import com.sungkyul.imagesearch.Fragment.Sub.Tourist_Sub;
-import com.sungkyul.imagesearch.OnSwipeTouchListener;
 import com.sungkyul.imagesearch.R;
 import com.sungkyul.imagesearch.es.Description;
 import com.sungkyul.imagesearch.es.Food;
@@ -33,6 +32,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 
+//키워드에 대한 관광지 프래그먼트
 public class TouristFragment extends Fragment {
 
     private static final String TAG = "TouristFragment";
@@ -175,12 +175,6 @@ public class TouristFragment extends Fragment {
             count++;
             con.addView(n_layout);
         }
-
-        linear_scroll_tou.setOnTouchListener(new OnSwipeTouchListener(getActivity().getApplicationContext()){
-
-        });
-
-
 
         return v;
     }

@@ -23,6 +23,7 @@ import androidx.core.content.ContextCompat;
 
 import java.util.ArrayList;
 
+//사용자의 핸드폰에 접근 권한을 가져오기 확인하기 위한 클래스
 public class PermissionUtils {
     public static boolean requestPermission(
             Activity activity, int requestCode, String... permissions) {

@@ -15,7 +15,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 
-//번역기
+//Vision API의 결과는 영어로 나와 한국어로 번역하기 위한 클래스
 public class NaverTranslateTask extends AsyncTask<String, Void, String> {
 
     public String resultText;
@@ -36,12 +36,9 @@ public class NaverTranslateTask extends AsyncTask<String, Void, String> {
     @Override
     protected String doInBackground(String... strings) {
 
-        //Log.d("AsyncTask:", "1.Background");
-
         String sourceText = strings[0];
 
         try {
-            //String text = URLEncoder.encode("만나서 반갑습니다.", "UTF-8");
             String text = URLEncoder.encode(sourceText, "UTF-8");
             String apiURL = "https://openapi.naver.com/v1/papago/n2mt";
             URL url = new URL(apiURL);
@@ -84,7 +81,6 @@ public class NaverTranslateTask extends AsyncTask<String, Void, String> {
             return items.getTranslatedText();
 
         } catch (Exception e) {
-            //System.out.println(e);
             Log.d("error", e.getMessage());
             return null;
         }
@@ -108,10 +104,6 @@ public class NaverTranslateTask extends AsyncTask<String, Void, String> {
                 .getAsJsonObject().get("result");
         //안드로이드 객체에 담기
         TranslatedItem items = gson.fromJson(rootObj.toString(), TranslatedItem.class);
-        //Log.d("result", items.getTranslatedText());
-
-        //번역결과를 텍스트뷰에 넣는다.
-//            tvResult.setText(items.getTranslatedText());
     }
 
 
