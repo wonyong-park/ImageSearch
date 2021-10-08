@@ -104,7 +104,8 @@
 - MYSQL
 
 
-
+## 시연 영상
+https://youtu.be/Jkkqrd6EjKk
 
 <!-- CONTACT -->
 ## Contact
